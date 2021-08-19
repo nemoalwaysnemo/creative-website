@@ -9,7 +9,6 @@ import { BizDevFolderViewModule } from '../biz-dev-folder-view/biz-dev-folder-vi
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     BizDevFolderViewModule,
   ],
   declarations: [

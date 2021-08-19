@@ -9,7 +9,6 @@ import { DisruptionFolderViewModule } from '../disruption-folder-view/disruption
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     DisruptionFolderViewModule,
   ],
   declarations: [

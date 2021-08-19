@@ -9,7 +9,6 @@ import { BackslashFolderInfoModule } from '../backslash-folder-info/backslash-fo
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     BackslashFolderInfoModule,
   ],
   declarations: [

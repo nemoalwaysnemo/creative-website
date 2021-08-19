@@ -69,7 +69,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
   }
 
   addToCollection(): void {
-    const collection: any = this.targetCollection ? this.targetCollection.shift() : '';
+    const collection: any = (this.targetCollection || []).shift();
     const assetIds: string[] = this.documents.map((doc: DocumentModel) => doc.uid);
     if (collection && assetIds.length > 0) {
       const subscription = this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).subscribe(_ => {
@@ -108,7 +108,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
       formType: 'add',
     };
     const document = this.parentDocument;
-    this.selectView(name, null, { formSettings, document });
+    this.selectView(name, null, { formSettings, documents: this.documents, document });
   }
 
   private triggerSearch(): void {

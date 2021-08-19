@@ -8,7 +8,6 @@ import { BizDevHomeComponent } from './biz-dev-home.component';
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     HomeSearchFormModule,
   ],

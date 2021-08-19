@@ -9,7 +9,6 @@ import { GlobalDocumentFormModule } from '../../shared/global-document-form/glob
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     HomeSearchFormModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,

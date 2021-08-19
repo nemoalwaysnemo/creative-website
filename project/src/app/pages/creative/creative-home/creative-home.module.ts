@@ -13,7 +13,6 @@ import { CreativeBestShowcaseModule } from './creative-best-showcase/creative-be
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     DocumentThumbnailViewModule,
     CreativeBestShowcaseModule,
   ],

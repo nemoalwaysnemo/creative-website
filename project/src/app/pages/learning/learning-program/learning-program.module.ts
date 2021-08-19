@@ -12,7 +12,6 @@ import { DocumentViewerModule } from '@pages/shared/document-viewer/document-vie
 @NgModule({
   imports: [
     ThemeModule,
-    RouterModule,
     SharedModule,
     LearningProgramVideoModule,
     LearningProgramHeaderModule,

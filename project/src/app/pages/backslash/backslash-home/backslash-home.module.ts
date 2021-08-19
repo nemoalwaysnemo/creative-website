@@ -12,7 +12,6 @@ import { BackslashHomeGalleryComponent } from './backslash-home-gallery/backslas
   imports: [
     ThemeModule,
     SharedModule,
-    RouterModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
     BackslashFormButtonModule,
