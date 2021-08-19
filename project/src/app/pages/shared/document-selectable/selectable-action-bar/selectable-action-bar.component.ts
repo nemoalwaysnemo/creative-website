@@ -77,6 +77,9 @@ export class SelectableActionBarComponent implements OnInit, OnDestroy {
   showcaseDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({ components: [GLOBAL_DOCUMENT_DIALOG.CUSTOM_SHOWCASE_ADD_REMOVE] });
 
   showCollectionDialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
+    metadata: {
+      mainViewChanged: false,
+    },
     components: [
       GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_COLLECTION_MGT,
       GLOBAL_DOCUMENT_FORM.CREATIVE_RING_COLLECTION_FORM,
