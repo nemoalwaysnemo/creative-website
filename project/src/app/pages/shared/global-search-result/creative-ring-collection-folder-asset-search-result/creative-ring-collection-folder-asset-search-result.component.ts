@@ -31,12 +31,6 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
     ],
   });
 
-  protected getDefaultThumbnailViewSettings(): any {
-    return {
-      enableShuffle: true,
-    };
-  }
-
   @Input() loading: boolean = true;
 
   constructor(
@@ -52,5 +46,11 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
 
   searchResult(docs: DocumentModel[]): void {
     this.documents = docs;
+  }
+
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      enableShuffle: true,
+    };
   }
 }

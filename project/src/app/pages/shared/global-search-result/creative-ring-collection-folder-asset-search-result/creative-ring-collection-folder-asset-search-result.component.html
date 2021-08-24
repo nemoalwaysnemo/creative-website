@@ -1,4 +1,4 @@
-<global-search-result [templateRef]="thumbnailView" [loading]="loading" (searchResult)="searchResult($event)" [thumbnailViewSettings]="thumbnailViewOptions"></global-search-result>
+<global-search-result [templateRef]="thumbnailView" [loading]="loading" [thumbnailViewSettings]="thumbnailViewOptions" (searchResult)="searchResult($event)"></global-search-result>
 <ng-template #thumbnailView let-doc="doc">
   <div class="image-holder">
     <a (click)="openDialog(dialog)" [title]="doc.title" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
