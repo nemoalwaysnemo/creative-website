@@ -31,6 +31,12 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
     ],
   });
 
+  protected getDefaultThumbnailViewSettings(): any {
+    return {
+      enableShuffle: true,
+    };
+  }
+
   @Input() loading: boolean = true;
 
   constructor(

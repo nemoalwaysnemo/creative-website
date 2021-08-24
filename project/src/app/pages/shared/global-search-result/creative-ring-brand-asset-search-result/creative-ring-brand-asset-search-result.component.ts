@@ -129,7 +129,7 @@ export class CreativeRingBrandAssetSearchResultComponent extends BaseSearchResul
   protected getDefaultThumbnailViewSettings(): any {
     return {
       layout: 'ring_brand_asset full-width',
+      enableShuffle: true,
     };
   }
-
 }
