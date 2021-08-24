@@ -24,12 +24,6 @@ export class BackslashCaseStudyAssetSearchResultComponent extends BaseSearchResu
     this.onQueryParamsChanged();
   }
 
-  protected getDefaultThumbnailViewSettings(): any {
-    return {
-      enableShuffle: true,
-    };
-  }
-
   goToLink(doc: DocumentModel): void {
     this.documentPageService.goToExternalLink(doc);
   }
