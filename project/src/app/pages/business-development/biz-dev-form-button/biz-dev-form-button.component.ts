@@ -21,7 +21,7 @@ export class BizDevFormButtonComponent {
   @Input() title: string;
 
   @Input()
-  set type(type: 'case' | 'case asset' | 'thought' | 'thought asset') {
+  set type(type: 'case' | 'case asset' | 'thought' | 'thought asset' | 'opportunity' | 'opportunity asset') {
     this.dialogSettings = this.getFormSettings(type);
   }
 
@@ -58,6 +58,12 @@ export class BizDevFormButtonComponent {
         break;
       case 'thought asset':
         components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM);
+        break;
+      case 'opportunity':
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_OPPORTUNITY_FOLDER_FORM);
+        break;
+      case 'opportunity asset':
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_OPPORTUNITY_ASSET_FORM);
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);

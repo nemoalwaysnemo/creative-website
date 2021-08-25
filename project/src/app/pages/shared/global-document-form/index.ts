@@ -21,6 +21,8 @@ export * from './disruption-how-tos-asset-form.component';
 export * from './disruption-x-module-asset-form.component';
 export * from './intelligence-brands-form.component';
 export * from './intelligence-asset-form.component';
+export * from './biz-dev-opportunity-folder-form.component';
+export * from './biz-dev-opportunity-asset-form.component';
 export * from './biz-dev-case-study-folder-form.component';
 export * from './biz-dev-case-study-asset-form.component';
 export * from './biz-dev-thought-folder-form.component';
