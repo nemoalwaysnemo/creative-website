@@ -50,6 +50,7 @@ export class CreativeRingCollectionFolderAssetSearchResultComponent extends Base
 
   protected getDefaultThumbnailViewSettings(): any {
     return {
+      layout: 'disruption-home full-width',
       enableShuffle: true,
     };
   }
