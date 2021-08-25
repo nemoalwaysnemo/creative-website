@@ -3,3 +3,53 @@
     padding: 0 !important;
   }
 }
+
+.enable_upload {
+  width: 70%;
+  float: right;
+  margin-right: 5%;
+
+  .add_box {
+    height: 35px;
+    text-align: center;
+    width: 100%;
+    float: right;
+    background-color: #EFEFEF;
+
+    p {
+      height: 35px;
+      width: 40%;
+      float: left;
+      margin-left: 30%;
+      font-weight: 700;
+      line-height: 35px;
+      font-size: 15px;
+    }
+
+    button {
+      float: right;
+      color: #FFFFFF;
+      font-weight: 700;
+      height: 35px;
+      width: 100px;
+      background-color: #F9DA78;
+      border-radius: 10px;
+      border: none;
+    }
+  }
+
+  .second_box {
+    // height: 520px;
+    padding: 100px 0;
+    text-align: center;
+    width: 100%;
+    float: right;
+  }
+}
+
+.tip {
+  height: 540px;
+  padding: 200px 0;
+  text-align: center;
+  line-height: 100px;
+}

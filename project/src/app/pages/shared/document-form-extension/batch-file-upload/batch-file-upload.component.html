@@ -4,9 +4,9 @@
     <table [ngClass]="['table-detail', (uploadSettings.layout ? uploadSettings.layout : '')]" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="{'width': '100%'}">
       <thead>
         <tr>
-          <th><span>Name</span></th>
+          <th class="th_name"><span>Name</span></th>
           <th><span>Type</span></th>
-          <th><span>Size</span></th>
+          <th class="th_size"><span>Size</span></th>
           <th class="header-labels">
             <span *ngFor="let header of columnHeaders" class="labels-names">
               <div *ngIf="header.required" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>{{header.label}}
@@ -24,7 +24,7 @@
             <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
             </dynamic-ng-form>
           </td>
-          <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs right" status="danger" (click)="removeOne(i)"
+          <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs right btn-delete" status="danger" (click)="removeOne(i)"
               [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadItems[i].formMode === 'edit')">Delete</button>
           </td>
         </tr>

@@ -1,18 +1,28 @@
 .batch-upload-queue {
   padding-top: 10px;
 }
-h6 { margin: 0 0 10px; }
-button { margin-right: 10px; }
+
+h6 {
+  margin: 0 0 10px;
+}
+
+button {
+  margin-right: 10px;
+}
+
 th {
   border: 0;
 }
+
 td {
   border: 0;
 }
+
 .file-info-zone {
   width: 230px;
   padding-right: 0;
 }
+
 .float-right {
   float: right;
 }
@@ -21,22 +31,72 @@ tbody tr td:nth-child(-n+3) {
   width: 95px;
 }
 
-.header-labels {
-  padding-left: 12px;
+.btn-delete {
+  height: 36px;
+  margin-top: 10px;
 }
 
-.labels-names {
-  display: block;
-  width: 158px;
-  float: left;
-}
-// ::ng-deep dynamic-ng-form-control {
-//   margin-bottom: 0!important;
-// }
-.btn-right {
-  width: 80px;
-}
+::ng-deep .importAsset {
 
-::ng-deep dynamic-ng-form-control .direction-horizontal {
-  padding-right: 4px;
+  th,
+  td {
+    text-align: left;
+  }
+
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    font-size: 14px;
+    letter-spacing: -1px;
+    padding: 0;
+  }
+
+  .direction-horizontal {
+    padding-right: 4px;
+  }
+
+  .form-control {
+    height: 36px !important;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+
+    @media only screen and (max-width: 1400px) {
+      margin-bottom: 4px;
+    }
+  }
+
+  .th_name {
+    width: 280px;
+  }
+
+  .th_size {
+    width: 96px;
+  }
+
+  .header-labels {
+    padding-left: 12px;
+
+    @media only screen and (max-width: 992px) {
+      width: 180px;
+    }
+
+    @media screen and (min-width: 992px) and (max-width: 1400px) {
+      width: 522px;
+    }
+
+    @media screen and (min-width: 1400px) {
+      width: 922px;
+    }
+  }
+
+  .labels-names {
+    display: block;
+    float: left;
+
+    @media only screen and (max-width: 992px) {
+      width: 140px;
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 158px;
+    }
+  }
 }
