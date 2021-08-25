@@ -20,6 +20,8 @@ import { DisruptionHowTosAssetFormComponent } from './disruption-how-tos-asset-f
 import { DisruptionXModuleAssetFormComponent } from './disruption-x-module-asset-form.component';
 import { IntelligenceBrandsFormComponent } from './intelligence-brands-form.component';
 import { IntelligenceAssetFormComponent } from './intelligence-asset-form.component';
+import { BizDevOpportunityFolderFormComponent } from './biz-dev-opportunity-folder-form.component';
+import { BizDevOpportunityAssetFormComponent } from './biz-dev-opportunity-asset-form.component';
 import { BizDevCaseStudyFolderFormComponent } from './biz-dev-case-study-folder-form.component';
 import { BizDevCaseStudyAssetFormComponent } from './biz-dev-case-study-asset-form.component';
 import { BizDevThoughtFolderFormComponent } from './biz-dev-thought-folder-form.component';
@@ -65,6 +67,8 @@ export const GLOBAL_DOCUMENT_FORM = {
   BIZ_DEV_CASE_STUDY_ASSET_FORM: BizDevCaseStudyAssetFormComponent,
   BIZ_DEV_THOUGHT_FOLDER_FORM: BizDevThoughtFolderFormComponent,
   BIZ_DEV_THOUGHT_ASSET_FORM: BizDevThoughtAssetFormComponent,
+  BIZ_DEV_OPPORTUNITY_FOLDER_FORM: BizDevOpportunityFolderFormComponent,
+  BIZ_DEV_OPPORTUNITY_ASSET_FORM: BizDevOpportunityAssetFormComponent,
   INNOVATION_FOLDER_FORM: InnovationFolderFormComponent,
   INNOVATION_ASSET_FORM: InnovationAssetFormComponent,
   BACKSLASH_ASSET_POST_FORM: BackslashAssetPostFormComponent,

@@ -40,6 +40,8 @@ import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
 import { FavoriteEdgeAssetSearchResultComponent } from './favorite-edge-asset-search-result/favorite-edge-asset-search-result.component';
 import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
+import { BizDevOpportunityAssetSearchResultComponent } from './biz-dev-opportunity-asset-search-result/biz-dev-opportunity-asset-search-result.component';
+import { BizDevOpportunitySearchResultComponent } from './biz-dev-opportunity-search-result/biz-dev-opportunity-search-result.component';
 import { BizDevCaseStudyAssetSearchResultComponent } from './biz-dev-case-study-asset-search-result/biz-dev-case-study-asset-search-result.component';
 import { BizDevCaseStudyFolderAssetSearchResultComponent } from './biz-dev-case-study-folder-asset-search-result/biz-dev-case-study-folder-asset-search-result.component';
 import { BizDevThoughtLeadershipAssetSearchResultComponent } from './biz-dev-thought-leadership-asset-search-result/biz-dev-thought-leadership-asset-search-result.component';
@@ -61,6 +63,7 @@ import { BackslashTriggerPoolAssetSearchResultComponent } from './backslash-trig
 import { BackslashPipelineAssetSearchResultComponent } from './backslash-pipeline-asset-search-result/backslash-pipeline-asset-search-result.component';
 import { LearningProgramAlumniSearchResultComponent } from './learning-program-alumni-search-result/learning-program-alumni-search-result.component';
 import { BackslashRegionSearchResultComponent } from './backslash-region-search-result/backslash-region-search-result.component';
+
 const COMPONENTS = [
   BaseSearchResultComponent,
   GlobalSearchResultComponent,
@@ -96,6 +99,8 @@ const COMPONENTS = [
   DisruptionXModuleAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
+  BizDevOpportunityAssetSearchResultComponent,
+  BizDevOpportunitySearchResultComponent,
   BizDevDocumentAssetSearchResultComponent,
   BizDevCaseStudyAssetSearchResultComponent,
   BizDevCaseStudyFolderAssetSearchResultComponent,

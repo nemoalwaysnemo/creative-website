@@ -19,6 +19,7 @@ import { LearningProgramAlumniPreviewDialogComponent } from './document-dialog-t
 import { LearningProgramNominationPreviewDialogComponent } from './document-dialog-template/learning-program-nomination-preview-dialog/learning-program-nomination-preview-dialog.component';
 import { RelatedBackslashReportAssetDialogPreviewComponent } from './document-dialog-template/related-backslash-report-asset-preview-dialog/related-backslash-report-asset-preview-dialog.component';
 import { CreativeRingAssetPreviewDialogComponent } from './document-dialog-template/creative-ring-asset-preview-dialog/creative-ring-asset-preview-dialog.component';
+
 export const GLOBAL_DOCUMENT_DIALOG = {
   PREVIEW_BACKSLASH_HOME_ASSET: BackslashHomeAssetDialogPreviewDialogComponent,
   PREVIEW_BACKSLASH_KNOWLEDGE_ASSET: BackslashKnowledgeAssetPreviewDialogComponent,

@@ -7,6 +7,10 @@ export const TAB_CONFIG: any[] = [
     title: 'Thought Leadership',
     route: '/p/business-development/Thought Leadership',
   },
+  // {
+  //   title: 'Pitches',
+  //   route: '/p/business-development/Pitches',
+  // },
   {
     title: '10x',
     route: '/p/business-development/10x',
