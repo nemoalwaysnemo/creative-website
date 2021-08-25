@@ -140,6 +140,10 @@ export class DocumentImportSettings {
 
   layoutPosition: string = 'right';
 
+  dropZoneLayout: string = '';
+
+  batchUploadLayout: string = '';
+
   acceptTypes: string = '*';
 
   queueLimit: number = 10;
