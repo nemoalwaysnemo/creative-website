@@ -1,7 +1,7 @@
 <div class="batch-upload" [nbSpinner]="loading" nbSpinnerStatus="disabled" [ngStyle]="loading ? {'min-height': '150px'} : {}">
   <div class="batch-upload-queue">
     <h6 *ngIf="uploadSettings.enableAction">{{ uploadZoneTitle }}</h6>
-    <table class="table-detail" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="{'width': '100%'}">
+    <table [ngClass]="['table-detail', (uploadSettings.layout ? uploadSettings.layout : '')]" *ngIf="uploadItems && uploadItems.length > 0" [ngStyle]="{'width': '100%'}">
       <thead>
         <tr>
           <th><span>Name</span></th>
