@@ -35,7 +35,7 @@ export class DocumentActionGroupComponent {
       this.document$.next(doc);
       if (this.isCreativeAsset(doc)) {
         this.downloadPermission$ = this.canDownloadCreativeAsset(doc);
-      } else if (this.isBizDevCaseStudyAsset(doc)) {
+      } else if (this.isBizDevCaseStudyAsset(doc) || this.isBizDevOpportunityAsset(doc)) {
         if (doc.get('app_global:asset_request') === false) {
           this.downloadPermission$ = observableOf(true);
         } else {
@@ -69,8 +69,12 @@ export class DocumentActionGroupComponent {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
   }
 
+  isBizDevOpportunityAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_OPPORTUNITY_ASSET_TYPE).includes(doc.type);
+  }
+
   isNeedSendDownloadRequest(doc: DocumentModel): boolean {
-    return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:asset_request') === true;
+    return (this.isBizDevCaseStudyAsset(doc) || this.isBizDevOpportunityAsset(doc))&& doc.get('app_global:asset_request') === true;
   }
 
   isCreativeVideoAsset(doc: DocumentModel): boolean {

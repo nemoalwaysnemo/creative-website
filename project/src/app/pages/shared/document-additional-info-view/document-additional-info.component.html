@@ -82,7 +82,7 @@
       <nb-accordion-item [collapsed]="false" class="accordion-item">
         <nb-accordion-item-header class="accordion-item-header"><span>Additional Attachments</span></nb-accordion-item-header>
         <nb-accordion-item-body class="accordion-item-body">
-          <ng-container *ngIf="isNeedSendDownloadRequest(documentModel)">
+          <ng-container *ngIf="isNeedSendDownloadRequest(documentModel) && (downloadPermission$ | async) === false">
             <table>
               <tbody *ngFor="let attachment of attachments">
                 <tr>

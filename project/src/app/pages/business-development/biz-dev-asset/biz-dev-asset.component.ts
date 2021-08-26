@@ -41,6 +41,7 @@ export class BizDevAssetComponent extends GlobalDocumentViewComponent implements
     'App-BizDev-Thought-Folder': '/p/business-development/Thought Leadership/folder',
     'App-BizDev-ThoughtLeadership-Folder': '/p/business-development/Thought Leadership/',
     'App-BizDev-Case-Studies-Folder': '/p/business-development/Case Studies/',
+    'App-BizDev-Opportunity': '/p/business-development/Pitches/folder',
     '*': '/p/business-development/asset',
   };
 

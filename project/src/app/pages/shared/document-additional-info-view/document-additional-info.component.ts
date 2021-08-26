@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, TemplateRef } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { getDocumentTypes } from '@core/services/helpers';
 import { DocumentPageService } from '../services/document-page.service';
@@ -49,18 +49,22 @@ export class DocumentAdditionalInfoComponent implements OnInit {
   }
 
   isNeedSendDownloadRequest(doc: DocumentModel): boolean {
-    return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:asset_request') === true;
+    return (this.isBizDevCaseStudyAsset(doc) || this.isBizDevOpportunityAsset(doc)) && doc.get('app_global:asset_request') === true;
   }
 
   private isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
   }
 
+  private isBizDevOpportunityAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_OPPORTUNITY_ASSET_TYPE).includes(doc.type);
+  }
+
   private performDocument(doc: DocumentModel): void {
-    if (this.isBizDevCaseStudyAsset(doc)) {
+    if (this.isBizDevCaseStudyAsset(doc) || this.isBizDevOpportunityAsset(doc)) {
       this.downloadPermission$ = observableOf(doc.get('app_global:asset_request') === false);
     } else {
-      this.downloadPermission$ = observableOf(true);
+      this.downloadPermission$ = doc.hasPermission(NuxeoPermission.Write);
     }
     if (NUXEO_DOC_TYPE.DISRUPTION_ASSET_TYPE.includes(doc.type)) {
       this.docType = 'Disruption';

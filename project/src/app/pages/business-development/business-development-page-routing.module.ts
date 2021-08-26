@@ -32,6 +32,10 @@ const routes: Routes = [{
       component: BizDevOpportunityFolderComponent,
     },
     {
+      path: 'Pitches/folder/:folder/asset/:id',
+      component: BizDevAssetComponent,
+    },
+    {
       path: 'Case Studies',
       component: BizDevCaseStudyComponent,
     },

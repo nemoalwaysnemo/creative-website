@@ -40,7 +40,7 @@ import { FavoriteBrandAssetSearchResultComponent } from './favorite-brand-asset-
 import { FavoriteDisruptionAssetSearchResultComponent } from './favorite-disruption-asset-search-result/favorite-disruption-asset-search-result.component';
 import { FavoriteEdgeAssetSearchResultComponent } from './favorite-edge-asset-search-result/favorite-edge-asset-search-result.component';
 import { BackslashDocumentAssetSearchResultComponent } from './backslash-document-asset-search-result/backslash-document-asset-search-result.component';
-import { BizDevOpportunityAssetSearchResultComponent } from './biz-dev-opportunity-asset-search-result/biz-dev-opportunity-asset-search-result.component';
+import { BizDevOpportunityAssetSearchResultComponent, BizDevOpportunityRowRenderComponent } from './biz-dev-opportunity-asset-search-result/biz-dev-opportunity-asset-search-result.component';
 import { BizDevOpportunitySearchResultComponent } from './biz-dev-opportunity-search-result/biz-dev-opportunity-search-result.component';
 import { BizDevCaseStudyAssetSearchResultComponent } from './biz-dev-case-study-asset-search-result/biz-dev-case-study-asset-search-result.component';
 import { BizDevCaseStudyFolderAssetSearchResultComponent } from './biz-dev-case-study-folder-asset-search-result/biz-dev-case-study-folder-asset-search-result.component';
@@ -101,6 +101,7 @@ const COMPONENTS = [
   IntelligenceDocumentAssetSearchResultComponent,
   BizDevOpportunityAssetSearchResultComponent,
   BizDevOpportunitySearchResultComponent,
+  BizDevOpportunityRowRenderComponent,
   BizDevDocumentAssetSearchResultComponent,
   BizDevCaseStudyAssetSearchResultComponent,
   BizDevCaseStudyFolderAssetSearchResultComponent,

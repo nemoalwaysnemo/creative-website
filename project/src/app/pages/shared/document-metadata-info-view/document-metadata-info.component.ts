@@ -18,6 +18,7 @@ enum AssetTypes {
   thinking = 'App-Disruption-Asset',
   caseAsset = 'App-BizDev-CaseStudy-Asset',
   thoughtAsset = 'App-BizDev-Thought-Asset',
+  opportunityAsset = 'App-BizDev-Opportunity-Asset',
   innovationAsset = 'App-Innovation-Asset',
   intelligenceAsset = 'App-Intelligence-Asset',
   backslashEdgeAsset = 'App-Backslash-Edges-Asset',
@@ -174,6 +175,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
       case AssetTypes.thoughtAsset:
         components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_ASSET_FORM);
         break;
+      case AssetTypes.opportunityAsset:
+        components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_OPPORTUNITY_ASSET_FORM);
+        break;
       case AssetTypes.innovationAsset:
         components.push(GLOBAL_DOCUMENT_FORM.INNOVATION_ASSET_FORM);
         break;
@@ -233,6 +237,9 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
         break;
       case AssetTypes.thoughtAsset:
         formTitle = 'Edit Think Piece';
+        break;
+      case AssetTypes.opportunityAsset:
+        formTitle = 'Edit Pitch Asset';
         break;
       case AssetTypes.innovationAsset:
         formTitle = 'Edit Asset';
@@ -307,7 +314,7 @@ export class DocumentMetadataInfoComponent implements OnDestroy {
 
   private getRequestParams(doc: DocumentModel): any {
     const jobTitle = doc.get('The_Loupe_Main:jobtitle');
-    return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length, ecm_mixinType_not_in: ''};
+    return { ecm_uuid: `["${jobTitle.join('", "')}"]`, pageSize: jobTitle.length, ecm_mixinType_not_in: '' };
   }
 
   hasBrand(): boolean {

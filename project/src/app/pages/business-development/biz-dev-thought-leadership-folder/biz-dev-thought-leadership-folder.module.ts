@@ -6,7 +6,6 @@ import { BizDevThoughtLeadershipFolderComponent } from './biz-dev-thought-leader
 import { BizDevFolderViewModule } from '../biz-dev-folder-view/biz-dev-folder-view.module';
 import { BizDevFormButtonModule } from '../biz-dev-form-button/biz-dev-form-button.module';
 
-
 @NgModule({
   imports: [
     ThemeModule,
