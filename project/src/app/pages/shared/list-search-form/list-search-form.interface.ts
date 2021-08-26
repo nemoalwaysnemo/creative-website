@@ -12,7 +12,11 @@ export class ListSearchRowCustomViewSettings {
 
   enableClick: boolean = true;
 
+  enableDownloadRequest: boolean = false;
+
   dialogTitle: string = ':docTitle';
+
+  placeholder: string = 'Details';
 
   viewType: 'button' | 'thumbnail' | 'icon' | 'html' | 'usage-rights-expiry' = 'thumbnail';
 
@@ -21,4 +25,7 @@ export class ListSearchRowCustomViewSettings {
   dialogParams: Subject<any> = new Subject();
 
   htmlFn: (doc: DocumentModel) => string = (doc: DocumentModel) => doc.title;
+
+  downloadRequestFn: (doc: DocumentModel) => boolean = (doc: DocumentModel) => doc.get('app_global:asset_request') === true;
+
 }
