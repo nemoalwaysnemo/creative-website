@@ -12,17 +12,20 @@
               <div *ngIf="header.required" class="required" style="display: inline-block; margin-right: 4px; color: red;">*</div>{{header.label}}
             </span>
           </th>
+          <th class="th_action" *ngIf="uploadSettings.enableAction"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let group of (formGroups.length > 0 ? formGroups : uploadItems); let i=index;" style="height: 40px;">
+        <tr *ngFor="let group of (formGroups.length > 0 ? formGroups : uploadItems); let i=index;">
           <td nowrap><strong>{{ parseFileName(uploadItems[i].fileName) }}</strong></td>
           <td nowrap>{{ uploadItems[i].getFileType() }}</td>
           <td nowrap *ngIf="uploadItems[i].original">{{ uploadItems[i].fileSize/1024/1024 | number:'.2' }} MB</td>
           <td nowrap *ngIf="!uploadItems[i].original">{{ uploadItems[i].fileSize/1024/1024 | number:'.2' }} MB, {{ uploadItems[i].percentLoaded }}%</td>
-          <td *ngIf="formGroups.length > 0 && uploadSettings.enableForm && uploadItems[i].isMainFile()" class="form-control-container">
-            <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
-            </dynamic-ng-form>
+          <td class="form-control-container">
+            <div *ngIf="formGroups.length > 0 && uploadSettings.enableForm && uploadItems[i].isMainFile()">
+              <dynamic-ng-form [formClass]="'document-form'" [group]="formGroups[i]" [formModel]="formModels[i]" (customEvent)="onCustomEvent($event)" (blur)="onBlur($event)" (change)="onChange($event)" (focus)="onFocus($event)">
+              </dynamic-ng-form>
+            </div>
           </td>
           <td nowrap *ngIf="uploadSettings.enableAction"><button nbButton outline class="btn btn-danger btn-xs right btn-delete" status="danger" (click)="removeOne(i)"
               [disabled]="(uploadStatus$ | async)?.disableDeleteButton() || (uploadItems[i].isMainFile() && uploadItems[i].formMode === 'edit')">Delete</button>

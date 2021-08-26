@@ -3,68 +3,67 @@
 }
 
 h6 {
-  margin: 0 0 10px;
+  margin-bottom: 10px;
 }
 
-button {
-  margin-right: 10px;
-}
-
-th {
-  border: 0;
-}
-
+th,
 td {
   border: 0;
 }
 
-.file-info-zone {
-  width: 230px;
-  padding-right: 0;
+th,
+td {
+  text-align: left;
 }
 
-.float-right {
-  float: right;
+.th_name {
+  width: 280px;
 }
 
-tbody tr td:nth-child(-n+3) {
-  width: 95px;
+.th_action {
+  width: 86px;
 }
+
+// .file-info-zone {
+//   width: 230px;
+//   padding-right: 0;
+// }
+
+// .float-right {
+//   float: right;
+// }
+
+// tbody tr td:nth-child(-n+3) {
+//   width: 95px;
+// }
 
 .btn-delete {
   height: 36px;
-  margin-top: 10px;
+}
+
+.header-labels {
+  padding-left: 12px;
 }
 
 ::ng-deep .importAsset {
-
-  th,
-  td {
-    text-align: left;
-  }
-
   .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
     font-size: 14px;
     letter-spacing: -1px;
     padding: 0;
   }
-
+  .form-control {
+    height: 36px !important;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+}
   .direction-horizontal {
     padding-right: 4px;
   }
 
   .form-control {
-    height: 36px !important;
-    padding-left: 8px;
-    border: 1px solid #ccc;
-
     @media only screen and (max-width: 1400px) {
       margin-bottom: 4px;
     }
-  }
-
-  .th_name {
-    width: 280px;
   }
 
   .th_size {
@@ -72,8 +71,6 @@ tbody tr td:nth-child(-n+3) {
   }
 
   .header-labels {
-    padding-left: 12px;
-
     @media only screen and (max-width: 992px) {
       width: 180px;
     }
@@ -83,7 +80,7 @@ tbody tr td:nth-child(-n+3) {
     }
 
     @media screen and (min-width: 1400px) {
-      width: 922px;
+      width: 850px;
     }
   }
 
