@@ -1,17 +1,19 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { DocumentModel } from '@core/api';
+import { ListSearchRowCustomDialogComponent } from '../../list-search-form';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 import { DocumentPageService } from '../../services/document-page.service';
 import { DocumentListViewItem } from '../../document-list-view/document-list-view.interface';
+import { ListSearchRowCustomViewSettings } from '../../list-search-form/list-search-form.interface';
 import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../global-document-dialog';
 
 @Component({
-  template: `<a [routerLink]="['/p/business-development/Pitches/folder/', value.uid]">{{ value.title }}</a>
+  template: `<a [routerLink]="['/p/business-development/Pitches/folder/', value.folderId, 'asset', value.uid]">{{ value.title }}</a>
   `,
 })
 export class BizDevOpportunityRowRenderComponent {
-  @Input() value: { title: string; uid: string };
+  @Input() value: { title: string; uid: string; folderId: string };
 }
 
 @Component({
@@ -49,10 +51,11 @@ export class BizDevOpportunityAssetSearchResultComponent extends BaseSearchResul
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
         uid: doc.uid,
-        title: { title: doc.title, uid: doc.uid },
+        title: { title: doc.title, uid: doc.uid, folderId: this.folderId },
         type: doc.get('The_Loupe_Main:assettype'),
         productionDate: doc.get('The_Loupe_ProdCredits:production_date'),
         author: doc.get('The_Loupe_Main:created_by'),
+        action: doc,
       }));
     }
     return items;
@@ -81,9 +84,22 @@ export class BizDevOpportunityAssetSearchResultComponent extends BaseSearchResul
         title: 'Author',
         sort: false,
       },
-      download: {
+      action: {
         title: 'Download',
         sort: false,
+        type: 'custom',
+        renderComponentData: new ListSearchRowCustomViewSettings({
+          placeholder: 'Download',
+          viewType: 'download-action',
+          enableClick: true,
+          enableDownloadRequest: true,
+          dialogSettings: new GlobalDocumentDialogSettings({
+            components: [
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_DOWNLOAD_REQUEST,
+            ],
+          }),
+        }),
+        renderComponent: ListSearchRowCustomDialogComponent,
       },
     },
   };
