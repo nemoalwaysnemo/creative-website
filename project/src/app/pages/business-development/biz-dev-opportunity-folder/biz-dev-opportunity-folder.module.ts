@@ -5,12 +5,15 @@ import { GlobalSearchFormModule, GlobalSearchResultModule } from '@pages/shared'
 import { BizDevOpportunityFolderComponent } from './biz-dev-opportunity-folder.component';
 import { BizDevFolderViewModule } from '../biz-dev-folder-view/biz-dev-folder-view.module';
 import { BizDevFormButtonModule } from '../biz-dev-form-button/biz-dev-form-button.module';
+import { GlobalSearchButtonModule } from '../../shared/global-search-button/global-search-button.module';
+
 @NgModule({
   imports: [
     ThemeModule,
     CommonModule,
     GlobalSearchFormModule,
     GlobalSearchResultModule,
+    GlobalSearchButtonModule,
     BizDevFolderViewModule,
     BizDevFormButtonModule,
   ],

@@ -5,6 +5,7 @@
       <biz-dev-form-button [parent]="document" [type]="'opportunity asset'" [title]="'Upload Documents'"></biz-dev-form-button>
     </div>
   </ng-container>
+  <global-search-button class="group-right" [enableViewSwitcher]="true" (resultViewChange)="onResultViewChanged($event)"></global-search-button>
 </global-search-form>
-<biz-dev-folder-view [loading]="loading" [assetUrl]="'/p/business-development/Case Studies/folder/'" [deleteRedirectUrl]="'/p/business-development/Case Studies/'" [document]="document"></biz-dev-folder-view>
-<biz-dev-opportunity-asset-search-result></biz-dev-opportunity-asset-search-result>
+<biz-dev-folder-view [loading]="loading" [assetUrl]="'/p/business-development/Pitches/folder/'" [deleteRedirectUrl]="'/p/business-development/Pitches/'" [document]="document"></biz-dev-folder-view>
+<biz-dev-opportunity-asset-search-result [folderId]="document?.uid" [selectedView]="currentView"></biz-dev-opportunity-asset-search-result>

@@ -1,6 +1,6 @@
 import { Component, Input, TemplateRef } from '@angular/core';
-import { GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
-import { DocumentPageService } from '../../../shared/services/document-page.service';
+import { GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogService } from '../../global-document-dialog';
+import { DocumentPageService } from '../../services/document-page.service';
 import { BaseSearchResultComponent } from '../base-search-result.component';
 
 @Component({
@@ -12,13 +12,6 @@ export class BizDevCaseStudyFolderAssetSearchResultComponent extends BaseSearchR
 
   @Input() folderId: string;
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    private globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    super(documentPageService);
-  }
-
   @Input() showDialog: boolean = false;
 
   dialogMetadata: any = {
@@ -28,6 +21,8 @@ export class BizDevCaseStudyFolderAssetSearchResultComponent extends BaseSearchR
     enableKnowledgeRelated: true,
   };
 
+  dialogTitle: string = 'Business Development';
+
   dialogSettings: GlobalDocumentDialogSettings = new GlobalDocumentDialogSettings({
     components: [
       GLOBAL_DOCUMENT_DIALOG.PREVIEW_BIZDEV_ASSET,
@@ -35,7 +30,12 @@ export class BizDevCaseStudyFolderAssetSearchResultComponent extends BaseSearchR
     ],
   });
 
-  dialogTitle: string = 'Business Development';
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService);
+  }
 
   openDialog(dialog: TemplateRef<any>): void {
     this.globalDocumentDialogService.open(dialog);

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable, of as observableOf, timer } from 'rxjs';
-import { DocumentModel, NuxeoPermission, NuxeoSearchConstants } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { parseTabRoute } from '@core/services/helpers';
 import { TAB_CONFIG } from '../business-development-tab-config';
@@ -13,6 +13,8 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
   templateUrl: './biz-dev-opportunity-folder.component.html',
 })
 export class BizDevOpportunityFolderComponent extends GlobalDocumentViewComponent {
+
+  currentView: string = 'thumbnailView';
 
   tabs: any[] = parseTabRoute(TAB_CONFIG);
 
@@ -62,6 +64,10 @@ export class BizDevOpportunityFolderComponent extends GlobalDocumentViewComponen
       params['ecm_path'] = doc.path;
     }
     return params;
+  }
+
+  onResultViewChanged(name: string): void {
+    this.currentView = name;
   }
 
 }

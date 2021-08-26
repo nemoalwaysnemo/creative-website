@@ -18,7 +18,7 @@
           <h4 class="left">{{ document.get('The_Loupe_Main:brand') }}</h4>
         </div>
         <div class="col-7">
-          <ng-container *ngIf="isNeedSendDownloadRequest(document)">
+          <ng-container *ngIf="isNeedSendDownloadRequest(documentModel) && (downloadPermission$ | async) === false">
             <a href="javascript:;" (click)="selectView('document-download-request')"><button class="inline-middle download right" title="Download">Download Request</button></a>
           </ng-container>
           <ng-container *ngIf="downloadPermission$ | async">

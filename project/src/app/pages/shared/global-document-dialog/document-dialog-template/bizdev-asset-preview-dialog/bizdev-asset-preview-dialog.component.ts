@@ -1,5 +1,5 @@
 import { Component, TemplateRef } from '@angular/core';
-import { DocumentModel } from '@core/api';
+import { DocumentModel, NuxeoPermission } from '@core/api';
 import { vocabularyFormatter, getDocumentTypes } from '@core/services/helpers';
 import { Observable, of as observableOf } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
@@ -44,8 +44,12 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
       this.document = doc;
       this.shareUrl = this.buildShareUrl(doc);
       this.attachments = doc.getAttachmentList();
-      if (this.isBizDevCaseStudyAsset(doc)) {
-        this.downloadPermission$ = observableOf(doc.get('app_global:asset_request') === false);
+      if (this.isBizDevCaseStudyAsset(doc) || this.isBizDevOpportunityAsset(doc)) {
+        if (doc.get('app_global:asset_request') === false) {
+          this.downloadPermission$ = observableOf(true);
+        } else {
+          this.downloadPermission$ = doc.hasPermission(NuxeoPermission.Write);
+        }
       } else {
         this.downloadPermission$ = observableOf(true);
       }
@@ -75,15 +79,21 @@ export class BizdevAssetPreviewDialogComponent extends DocumentDialogPreviewTemp
       url = 'business-development/Case Studies/folder/:parentRef/asset/';
     } else if (doc.type === 'App-BizDev-Thought-Asset') {
       url = 'business-development/Thought Leadership/folder/:parentRef/asset/';
+    } else if (doc.type === 'App-BizDev-Opportunity-Asset') {
+      url = 'business-development/Pitches/folder/:parentRef/asset/';
     }
     return this.documentPageService.getCurrentAppUrl(url.replace(':parentRef', doc.parentRef) + doc.uid);
   }
 
   isNeedSendDownloadRequest(doc: DocumentModel): boolean {
-    return this.isBizDevCaseStudyAsset(doc) && doc.get('app_global:asset_request') === true;
+    return (this.isBizDevCaseStudyAsset(doc) || this.isBizDevOpportunityAsset(doc)) && doc.get('app_global:asset_request') === true;
   }
 
   isBizDevCaseStudyAsset(doc: DocumentModel): boolean {
     return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_CASE_STUDIES_ASSET_TYPE).includes(doc.type);
+  }
+
+  isBizDevOpportunityAsset(doc: DocumentModel): boolean {
+    return doc && getDocumentTypes(NUXEO_DOC_TYPE.BIZ_DEV_OPPORTUNITY_ASSET_TYPE).includes(doc.type);
   }
 }

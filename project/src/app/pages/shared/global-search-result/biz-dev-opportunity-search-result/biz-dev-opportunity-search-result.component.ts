@@ -15,6 +15,7 @@ export class BizDevOpportunitySearchResultComponent extends BaseSearchResultComp
   ) {
     super(documentPageService);
   }
+
   protected onInit(): void {
     this.onQueryParamsChanged();
   }

@@ -75,18 +75,23 @@ export class BizDevFolderViewComponent {
       components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_CASE_STUDY_FOLDER_FORM);
     } else if (doc.type === 'App-BizDev-Thought-Folder') {
       components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_THOUGHT_FOLDER_FORM);
+    } else if (doc.type === 'App-BizDev-Opportunity') {
+      components.push(GLOBAL_DOCUMENT_FORM.BIZ_DEV_OPPORTUNITY_FOLDER_FORM);
     }
     return new GlobalDocumentDialogSettings({ components });
   }
 
   getFormTitle(doc: DocumentModel): any {
-    let formTitle;
+    let formTitle = 'Edit';
     switch (doc.type) {
       case 'App-BizDev-CaseStudy-Folder':
         formTitle = 'Edit Case Folder';
         break;
       case 'App-BizDev-Thought-Folder':
         formTitle = 'Edit Thought Folder';
+        break;
+      case 'App-BizDev-Opportunity':
+        formTitle = 'Edit Pitch Folder';
         break;
       default:
         break;
@@ -150,6 +155,12 @@ export class BizDevFolderViewComponent {
           rootPath: this.documentPageService.getConfig('path:BIZ_DEV_THOUGHT_LEADERSHIP_FOLDER_PATH'),
           urlRootPath: '/p/business-development/Case Studies/',
           urlParentPath: '/p/business-development/Case Studies/',
+        };
+      case 'App-BizDev-Opportunity':
+        return {
+          rootPath: this.documentPageService.getConfig('path:BIZ_DEV_OPPORTUNITY_FOLDER_PATH'),
+          urlRootPath: '/p/business-development/Pitches/',
+          urlParentPath: '/p/business-development/Pitches/folder/',
         };
       default:
         return {};
