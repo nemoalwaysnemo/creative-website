@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, Input } from '@angular/core';
+import { Component, ComponentFactoryResolver, Input, ComponentRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
 import { AdvanceSearchService, DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse, UserModel } from '@core/api';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
-
+import { DocumentCreativeCampaignAssetHomeMenuComponent } from './document-creative-campaign-asset-home-action/document-creative-compaign-asset-home-menu.component';
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
@@ -40,6 +40,38 @@ export class DocumentCreativeCampaignAssetRowRenderComponent {
   templateUrl: './document-creative-campaign-asset-home.component.html',
 })
 export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreativeCampaignMgtBaseComponent {
+  @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
+
+  dynamicComponent: ComponentRef<any>;
+
+  LEFT_COMP = {
+    home_menu: DocumentCreativeCampaignAssetHomeMenuComponent,
+  };
+
+  private actions: NbMenuItem[] = [
+    {
+      id: 'edit-campaign',
+      title: 'Edit Campaign',
+      type: 'page',
+      triggerChangeSettings: {
+        name: 'edit-campaign',
+        type: 'view',
+        formMode: 'edit',
+        document: this.document,
+      },
+    },
+    {
+      id: 'create-new-project',
+      title: 'Create New Project',
+      type: 'page',
+      triggerChangeSettings: {
+        name: 'create-new-project',
+        type: 'view',
+        formMode: 'create',
+        document: this.document,
+      },
+    },
+  ];
 
   filters: SearchFilterModel[] = [
     new SearchFilterModel({ key: 'the_loupe_main_assettype_agg', placeholder: 'Asset Type' }),
@@ -131,6 +163,10 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
     this.subscribeHomeEvents();
   }
 
+  protected onInit(): void {
+    this.createComponent(this.LEFT_COMP.home_menu);
+  }
+
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
   };
@@ -141,6 +177,38 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
 
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
+  }
+
+  protected createComponent(component: Type<any>): void {
+    this.dynamicComponent = this.createDynamicMenuComponent(component);
+    this.dynamicComponent.instance.actions$.next(this.actions);
+    this.dynamicComponent.instance.document = this.document;
+    const subscription = this.dynamicComponent.instance.itemClick.subscribe((item: NbMenuItem) => {
+      const itemInfo = item.triggerChangeSettings;
+      this.triggerChangeView(itemInfo['name'], itemInfo['type'], this.createMgtSettings(itemInfo['formMode']));
+    });
+    this.subscription.add(subscription);
+  }
+
+  private createDynamicMenuComponent(component: Type<any>): ComponentRef<any> {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(component);
+    this.dynamicTarget.clear();
+    return this.dynamicTarget.createComponent(componentFactory);
+  }
+
+  private createMgtSettings(mode: string = 'eidt'): any{
+    return {
+      mainViewChanged: true,
+      document: mode === 'edit'? this.document : this.document.getParent(),
+      project: this.templateSettings.project,
+      homeTemplate: 'creative-campaign-mgt-template',
+      homePage: 'asset-page',
+      homeView: 'asset-home-view',
+      formMode: mode,
+      showMessageBeforeSave: false,
+      // batchDocuments: this.selectedItems,
+      campaign: this.document,
+    };
   }
 
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeCampaignMgtSettings): Observable<DocumentModel> {

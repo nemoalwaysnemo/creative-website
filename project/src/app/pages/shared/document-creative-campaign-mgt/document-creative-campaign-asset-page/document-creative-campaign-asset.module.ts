@@ -9,7 +9,7 @@ import { DocumentCreativeCampaignAssetPageComponent } from './document-creative-
 import { DocumentCreativeCampaignNavigationModule } from '../shared/document-creative-campaign-navigation/document-creative-campaign-navigation.module';
 import { DocumentCreativeCampaignInfoModule } from '../shared/document-creative-campaign-info/document-creative-campaign-info.module';
 import { DocumentCreativeCampaignAssetHomeComponent, DocumentCreativeCampaignAssetRowRenderComponent } from './document-creative-campaign-asset-home/document-creative-campaign-asset-home.component';
-
+import { DocumentCreativeCampaignAssetHomeMenuComponent } from './document-creative-campaign-asset-home/document-creative-campaign-asset-home-action/document-creative-compaign-asset-home-menu.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,6 +25,7 @@ import { DocumentCreativeCampaignAssetHomeComponent, DocumentCreativeCampaignAss
     DocumentCreativeCampaignAssetPageComponent,
     DocumentCreativeCampaignAssetHomeComponent,
     DocumentCreativeCampaignAssetRowRenderComponent,
+    DocumentCreativeCampaignAssetHomeMenuComponent,
   ],
 })
 export class DocumentCreativeCampaignAssetModule {

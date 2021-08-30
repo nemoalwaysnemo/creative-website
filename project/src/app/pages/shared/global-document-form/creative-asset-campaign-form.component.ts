@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { Observable } from 'rxjs';
+import { Observable, of as observableOf } from 'rxjs';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormSettings } from '../document-form/document-form.interface';
-import { DocumentPageService } from '../services/document-page.service';
+import { DocumentFormSettings, DocumentFormEvent } from '../document-form/document-form.interface';
+import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
-
+import { CreativeProjectMgtSettings } from '../document-creative-project-mgt/document-creative-project-mgt.interface';
 @Component({
   selector: 'creative-asset-campaign-form',
   template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
@@ -23,6 +23,18 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
     return this.initializeDocument(doc, this.getDocType());
+  }
+
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
+    if (event.action === 'Canceled' && event.context.formMode === 'edit') {
+      this.goToAssetHome();
+    }
+    return observableOf(event);
+  }
+
+  goToAssetHome(): void {
+    const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormModels(): any[] {
