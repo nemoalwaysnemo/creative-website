@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { DocumentModel, UserModel } from '@core/api';
+import { DocumentModel, UserModel, NuxeoAutomations } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { DynamicSuggestionModel, DynamicInputModel, DynamicOptionTagModel, DynamicDatepickerDirectiveModel, DynamicCheckboxModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { SuggestionSettings } from '../document-form-extension';
 import { OptionModel } from '../option-select/option-select.interface';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
-import { DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormEvent, DocumentFormSettings, DocumentFormContext } from '../document-form/document-form.interface';
 import { CreativeProjectMgtSettings } from '../document-creative-project-mgt/document-creative-project-mgt.interface';
-
 @Component({
   selector: 'creative-asset-project-form',
   template: '<document-form [user]="currentUser" [document]="document" [settings]="formSettings" [beforeSave]="beforeSave" [afterSave]="afterSave" (callback)="onCallback($event)"></document-form>',
@@ -24,18 +24,37 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
   }
 
   protected beforeOnCreation(doc: DocumentModel, user: UserModel, formSettings: DocumentFormSettings): Observable<DocumentModel> {
-    return this.initializeDocument(doc, this.getDocType());
+    if (formSettings.campaign) {
+      return this.documentPageService.operation(NuxeoAutomations.InitializeDocument, { type: this.getDocType() }, doc.uid || doc.path, { schemas: '*' })
+        .pipe(
+          tap((document: DocumentModel) => {
+            document.setParent(formSettings.campaign, 'campaign');
+            document.setParent(doc);
+            document.path = doc.uid;
+            document.parentRef = doc.uid;
+          }),
+        );
+    } else {
+      return this.initializeDocument(doc, this.getDocType());
+    }
+
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    if (event.action === 'Canceled' && event.context.formMode === 'edit') {
-      this.goToAssetHome();
+    if (event.action === 'Canceled' && (event.context.formMode === 'edit' || 'create')) {
+      this.goToAssetHome(event.context.formMode);
     }
     return observableOf(event);
   }
 
-  goToAssetHome(): void {
-    const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
+  goToAssetHome(formMode): void {
+    const doc = formMode === 'create' ? this.document.getParent('campaign') : this.document;
+    const settings = new CreativeProjectMgtSettings({ document: doc, project: this.formSettings.project });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
+
+  goToCampaignHome(): void {
+    const settings = new CreativeProjectMgtSettings({ document: this.document.getParent('campaign'), project: this.formSettings.project });
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
@@ -85,6 +104,10 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
         },
         validators: { required: null },
         errorMessages: { required: '{{label}} is required' },
+        defaultValueFn: (ctx: DocumentFormContext): any => {
+          const campaign = ctx.currentDocument.getParent('campaign');
+          return campaign ? campaign.uid : null;
+        },
       }),
       new DynamicInputModel({
         id: 'The_Loupe_Main:jobnumber',
