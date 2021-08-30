@@ -77,7 +77,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     },
     {
       id: '3rd-import-new-request',
-      title: 'Request 3rd Paryt Import',
+      title: 'Request 3rd Party Import',
       type: 'page',
       triggerChangeSettings: {
         name: '3rd-import-new-request',

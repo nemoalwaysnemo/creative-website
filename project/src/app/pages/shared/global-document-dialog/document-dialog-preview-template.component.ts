@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { DocumentModel } from '@core/api';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { DocumentDialogCustomTemplateComponent } from './document-dialog-custom-template.component';
@@ -9,6 +9,15 @@ import { DocumentPageService } from '../services/document-page.service';
   template: '',
 })
 export class DocumentDialogPreviewTemplateComponent extends DocumentDialogCustomTemplateComponent {
+
+  @HostListener('window:keyup', ['$event'])
+  keyUpEvent(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft' && this.hasPrev()) {
+      this.prev();
+    } else if (event.key === 'ArrowRight' && this.hasNext()) {
+      this.next();
+    }
+  }
 
   @Input()
   set metadata(metadata: any) {
