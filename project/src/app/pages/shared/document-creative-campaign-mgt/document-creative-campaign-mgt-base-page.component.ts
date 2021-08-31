@@ -4,7 +4,7 @@ import { isValueEmpty } from '@core/services/helpers';
 import { Subscription } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
-
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 @Component({
   template: '',
 })
@@ -39,6 +39,7 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     this.subscribeEvents();
   }
@@ -86,13 +87,21 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
   }
 
   protected subscribeEvents(): void {
-    this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
-      if (event.data.type === 'page') {
-        this.onPageChanged(event);
-      } else if (event.data.type === 'view') {
-        this.onViewChanged(event);
+    const subscription = this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
+      if (event.name === 'SelectedComponentChanged') {
+        if (event.data.type === 'page') {
+          this.onPageChanged(event);
+          this.globalDocumentDialogService.mainViewChanged(false);
+        } else if (event.data.type === 'view') {
+          this.onViewChanged(event);
+          const settings = event.data.settings;
+          this.globalDocumentDialogService.mainViewChanged(settings.mainViewChanged, settings);
+        } else if (event.data.type === 'dialog') {
+          this.globalDocumentDialogService.selectView(event.data.view, null, event.data.settings || {});
+        }
       }
     });
+    this.subscription.add(subscription);
   }
 
   protected setDocument(doc: DocumentModel): void {

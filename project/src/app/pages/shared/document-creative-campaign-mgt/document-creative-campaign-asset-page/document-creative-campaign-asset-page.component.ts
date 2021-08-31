@@ -4,7 +4,7 @@ import { DocumentPageService, GlobalEvent } from '../../services/document-page.s
 import { DocumentCreativeCampaignMgtBasePageComponent } from '../document-creative-campaign-mgt-base-page.component';
 import { DocumentCreativeCampaignAssetHomeComponent } from './document-creative-campaign-asset-home/document-creative-campaign-asset-home.component';
 import { TAB_CONFIG } from './document-creative-campaign-mgt-asset-tab-config';
-
+import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 @Component({
   selector: 'document-creative-campaign-asset-page',
   styleUrls: ['../document-creative-campaign-mgt.component.scss', './document-creative-campaign-asset-page.component.scss'],
@@ -17,8 +17,9 @@ export class DocumentCreativeCampaignAssetPageComponent extends DocumentCreative
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected onInit(): void {
