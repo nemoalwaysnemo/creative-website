@@ -156,7 +156,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
       pageSize: 99,
     };
     if (doc) {
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     if (brand) {
       params['ecm_path'] = brand.path;
@@ -173,7 +173,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
     };
     if (doc) {
       params['ecm_uuid_not_eq'] = doc.uid;
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     if (brand) {
       params['ecm_path'] = brand.path;

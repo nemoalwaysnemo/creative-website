@@ -20,7 +20,7 @@ export class DocumentDialogCustomTemplateComponent extends DocumentDialogBaseTem
   backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
     const m = this.mainViewChanged;
     const settings = metadata || (m.metadata || []).pop();
-    if (['asset-home-view', '3rd-import-home-view', 'package-home-view', 'import-asset-home-view', 'usage-rights-home-view'].includes(settings.homeView)) {
+    if (this.getExcludeHomeViews().includes(settings.homeView)) {
       settings.mainViewChanged = false;
     }
     this.globalDocumentDialogService.backToMainView(componentName || m.componentName, settings || this.getDialogSettings(), component || m.component);
@@ -28,5 +28,9 @@ export class DocumentDialogCustomTemplateComponent extends DocumentDialogBaseTem
 
   protected subscribeDialogEvents(): void {
     this.subscribeDialogBuiltInEvents();
+  }
+
+  protected getExcludeHomeViews(): string[] {
+    return [];
   }
 }

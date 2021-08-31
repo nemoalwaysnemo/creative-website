@@ -54,7 +54,7 @@ export class DocumentCreativeProject3rdImportRequestComponent extends DocumentCr
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
-          enableClick: true,
+          enableDialog: true,
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },

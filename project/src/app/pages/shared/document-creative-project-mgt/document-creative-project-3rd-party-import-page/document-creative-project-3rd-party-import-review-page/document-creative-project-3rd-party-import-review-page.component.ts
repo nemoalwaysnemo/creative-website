@@ -46,7 +46,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
-          enableClick: true,
+          enableDialog: true,
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -96,7 +96,7 @@ export class DocumentCreativeProject3rdPartyImportReviewComponent extends Docume
     return date ? new DatePipe('en-US').transform(date, 'yyyy-MM-dd') : null;
   }
 
-  protected setDocument(doc: DocumentModel): void {
+  protected performDocument(doc: DocumentModel): void {
     if (doc) {
       this.requestDocument = doc;
       this.loading = false;

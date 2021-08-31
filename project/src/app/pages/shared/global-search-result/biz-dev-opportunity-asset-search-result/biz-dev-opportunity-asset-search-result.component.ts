@@ -91,7 +91,7 @@ export class BizDevOpportunityAssetSearchResultComponent extends BaseSearchResul
         renderComponentData: new ListSearchRowCustomViewSettings({
           placeholder: 'Download',
           viewType: 'download-action',
-          enableClick: true,
+          enableDialog: true,
           enableDownloadRequest: true,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [

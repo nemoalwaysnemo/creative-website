@@ -56,7 +56,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
     // 'DisruptionX Asset'
     components.push(GLOBAL_DOCUMENT_DIALOG.PREVIEW_DISRUPTION_X);
     let main = null;
-    let containerType = null;
+    let containerLayout = null;
     switch (type) {
       case 'Backslash':
         // if (NUXEO_DOC_TYPE.BACKSLASH_ASSET_TYPE.includes(doc.type)) {
@@ -67,7 +67,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
         break;
       case 'Backslash Report':
         main = GLOBAL_DOCUMENT_DIALOG.PREVIEW_RELATED_BACKSLASH_REPORT_ASSET;
-        containerType = 'middle-dialog-container';
+        containerLayout = 'middle-dialog-container';
         break;
       case 'Disruption':
         if (this.isDisruptionX(doc)) {
@@ -91,7 +91,7 @@ export class KnowledgeDocumentAssetSearchResultComponent {
       default:
         break;
     }
-    return new GlobalDocumentDialogSettings({ components, main, containerType});
+    return new GlobalDocumentDialogSettings({ components, main, containerLayout});
   }
 
   isDisruptionX(doc: DocumentModel): boolean {

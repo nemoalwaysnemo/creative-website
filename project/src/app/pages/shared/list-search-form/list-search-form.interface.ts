@@ -10,7 +10,9 @@ export class ListSearchRowCustomViewSettings {
     Object.assign(this, data);
   }
 
-  enableClick: boolean = true;
+  enableClick: boolean = false;
+
+  enableDialog: boolean = true;
 
   enableDownloadRequest: boolean = false;
 

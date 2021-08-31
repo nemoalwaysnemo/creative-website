@@ -38,8 +38,6 @@ export class DocumentCreativeProjectAssetsListComponent {
 
   usageRights: any = {};
 
-  doc: DocumentModel;
-
   loading: boolean = true;
 
   contractUid: any = [];
@@ -68,7 +66,7 @@ export class DocumentCreativeProjectAssetsListComponent {
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
-          enableClick: true,
+          enableDialog: true,
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -105,16 +103,10 @@ export class DocumentCreativeProjectAssetsListComponent {
     },
   };
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    private advanceSearchService: AdvanceSearchService,
-  ) { }
-
   @Output() selectDocuments: EventEmitter<DocumentModel[]> = new EventEmitter<DocumentModel[]>();
 
   @Input()
   set document(doc: DocumentModel) {
-    this.doc = doc;
     this.loading = false;
   }
 
@@ -138,9 +130,14 @@ export class DocumentCreativeProjectAssetsListComponent {
     return items;
   };
 
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private advanceSearchService: AdvanceSearchService,
+  ) { }
+
   formatAsset(row: any): void {
     const items = [];
-    for (const item of row.selected){
+    for (const item of row.selected) {
       items.push(item.action);
     }
     this.selectDocuments.emit(items);

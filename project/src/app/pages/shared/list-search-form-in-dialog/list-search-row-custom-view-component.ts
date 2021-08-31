@@ -69,7 +69,7 @@ export class ListSearchRowCustomViewComponent {
   }
 
   onClick(event: Event): void {
-    if (this.options.enableClick) {
+    if (this.options.enableDialog) {
       this.documentPageService.triggerEvent(new GlobalEvent({ name: 'ItemClicked', data: { document: this.value }, type: 'list-search-row-custom-view' }));
     }
   }

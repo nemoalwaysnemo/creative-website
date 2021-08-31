@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { DocumentDialogCustomTemplateComponent } from '../../document-dialog-custom-template.component';
 import { GlobalDocumentDialogService } from '../../global-document-dialog.service';
 import { DocumentPageService } from '../../../services/document-page.service';
@@ -18,5 +18,9 @@ export class CreativeProjectMgtTemplateComponent extends DocumentDialogCustomTem
   ) {
     super(globalDocumentDialogService, documentPageService);
     this.subscribeDialogEvents();
+  }
+
+  protected getExcludeHomeViews(): string[] {
+    return ['asset-home-view', '3rd-import-home-view', 'package-home-view', 'import-asset-home-view', 'usage-rights-home-view'];
   }
 }
