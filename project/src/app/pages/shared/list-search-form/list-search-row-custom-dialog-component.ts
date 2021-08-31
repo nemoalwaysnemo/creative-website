@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
     <ng-container *ngIf="document" [ngSwitch]="true">
 
       <ng-container *ngSwitchCase="options.viewType === 'button'">
-        <button type="button" (click)="openDialog(dialog)" class="icon_btn">{{options.placeholder}}</button>
+        <button type="button" (click)="onClick($event, dialog)" class="icon_btn">{{options.placeholder}}</button>
       </ng-container>
 
       <ng-container *ngSwitchCase="options.viewType === 'html'">
@@ -27,7 +27,7 @@ import { filter } from 'rxjs/operators';
         </ng-container>
 
         <ng-container *ngIf="enableDownloadRequest && (downloadPermission$ | async) === false">
-          <a href="javascript:;" (click)="openDialog(dialog)" title="Download Request">
+          <a href="javascript:;" (click)="onClick($event, dialog)" title="Download Request">
             <img style="max-height:68px;" src="/assets/images/download.png">
           </a>
         </ng-container>
@@ -36,18 +36,20 @@ import { filter } from 'rxjs/operators';
 
       <ng-container *ngSwitchCase="options.viewType === 'thumbnail'">
         <ng-container *ngIf="!options.dialogSettings" >
-          <img style="max-height:68px;" [src]="document.thumbnailUrl">
+          <a href="javascript:;" (click)="onClick($event, dialog)" title="getTitle(document)">
+            <img style="max-height:68px;" [src]="document.thumbnailUrl">
+          </a>
         </ng-container>
 
         <ng-container *ngIf="options.dialogSettings">
-          <a href="javascript:;" (click)="openDialog(dialog)" class="property-intro inline-top" title="getTitle(document)">
+          <a href="javascript:;" (click)="onClick($event, dialog)" class="property-intro inline-top" title="getTitle(document)">
             <img style="max-height:68px;" [src]="document.thumbnailUrl">
           </a>
         </ng-container>
       </ng-container>
 
       <ng-template #dialog>
-        <global-document-dialog [settings]="options.dialogSettings" [documentModel]="document" [title]="getTitle(document)"></global-document-dialog>
+        <global-document-dialog [settings]="options.dialogSettings" [documentModel]="document" [metadata]="options.dialogSettings.metadata" [title]="getTitle(document)"></global-document-dialog>
       </ng-template>
 
     </ng-container>
@@ -89,14 +91,25 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   constructor(protected globalDocumentDialogService: GlobalDocumentDialogService) {
     this.onDocumentChanged();
+    // this.subscribeEvents();
   }
 
   ngOnInit(): void {
-    this.subscribeEvents();
+
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  onClick(event: any, dialog: TemplateRef<any>, opts: any = {}): void {
+    if (this.options.enableClick) {
+      this.globalDocumentDialogService.triggerEvent({ name: 'RowClick', type: 'built-in', messageContent: 'Row Click', options: { document: this.document } });
+    } else if (this.options.enableDialog) {
+      this.openDialog(dialog, opts);
+    }
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   getTitle(doc: DocumentModel): string {
@@ -104,10 +117,8 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
   }
 
   openDialog(dialog: TemplateRef<any>, opts: any = {}): void {
-    if (this.options.enableClick) {
-      const options = Object.assign({}, { closeOnBackdropClick: false }, opts);
-      this.globalDocumentDialogService.open(dialog, options);
-    }
+    const options = Object.assign({}, { closeOnBackdropClick: false }, opts);
+    this.globalDocumentDialogService.open(dialog, options);
   }
 
   getHtmlTemplate(doc: DocumentModel): string {
@@ -115,8 +126,8 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
   }
 
   private triggerDialog(event: DocumentDialogEvent): void {
-    if (event.name === 'ButtonClicked') {
-      this.openDialog(this.dialog, { selectedMenu: event.options.selectedMenu, selectedTab: event.options.selectedTab });
+    if (event.name === 'TriggerDialog') {
+      this.openDialog(this.dialog, { document: this.document });
     }
   }
 
@@ -143,7 +154,7 @@ export class ListSearchRowCustomDialogComponent implements OnInit, OnDestroy {
 
   private subscribeEvents(): void {
     const subscription = this.globalDocumentDialogService.onEventType('custom').pipe(
-      filter((params: any) => params.options.document && this.document.uid === params.options.document.uid),
+      filter((e: any) => e.options.document && this.document.uid === e.options.document.uid),
     ).subscribe((event: DocumentDialogEvent) => {
       this.triggerDialog(event);
     });

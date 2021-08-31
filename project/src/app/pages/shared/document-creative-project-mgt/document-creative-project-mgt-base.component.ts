@@ -17,7 +17,7 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    this.setDocument(doc);
+    this.document$.next(doc);
   }
 
   @Input()
@@ -37,7 +37,7 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
     this.onDocumentChanged();
   }
 
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, settings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }
 
@@ -53,14 +53,19 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
         observableOf(settings),
       ])),
     ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, CreativeProjectMgtSettings]) => {
-      this.templateSettings = settings;
-      this.currentUser = user;
-      this.document = doc;
+      this.setDocument(doc, user, settings);
+      this.performDocument(doc, user, settings);
     });
     this.subscription.add(subscription);
   }
 
-  protected setDocument(doc: DocumentModel): void {
+  protected setDocument(doc: DocumentModel, user: UserModel, settings: CreativeProjectMgtSettings): void {
+    this.templateSettings = settings;
+    this.currentUser = user;
+    this.document = doc;
+  }
+
+  protected performDocument(doc: DocumentModel, user: UserModel, settings: CreativeProjectMgtSettings): void {
     if (doc) {
       const brand = doc.filterParents(['App-Library-Folder']).pop();
       if (brand) {
@@ -70,7 +75,6 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
       if (campaignMgt) {
         doc.setParent(campaignMgt, 'parent');
       }
-      this.document$.next(doc);
     }
   }
 

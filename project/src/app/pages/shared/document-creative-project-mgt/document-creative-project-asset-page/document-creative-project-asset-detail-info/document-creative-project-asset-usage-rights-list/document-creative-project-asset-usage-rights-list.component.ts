@@ -7,8 +7,8 @@ import { map } from 'rxjs/operators';
 import { GlobalSearchFormSettings } from '../../../../../shared/global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../../../../shared/list-search-form/list-search-form.interface';
 import { ListSearchRowCustomViewComponent } from '../../../../../shared/list-search-form-in-dialog/list-search-row-custom-view-component';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentListViewItem } from '../../../../../shared/document-list-view/document-list-view.interface';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 enum AssetTypes {
   music = 'App-Library-UsageRights-Music',
@@ -55,8 +55,6 @@ export class DocumentCreativeAssetUsageRightsRowRenderComponent {
 export class DocumentCreativeProjectAssetUsageRightsListComponent {
 
   usageRights: any = {};
-
-  doc: DocumentModel;
 
   loading: boolean = true;
 
@@ -106,7 +104,6 @@ export class DocumentCreativeProjectAssetUsageRightsListComponent {
 
   @Input()
   set document(doc: DocumentModel) {
-    this.doc = doc;
     this.loading = false;
     timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
   }

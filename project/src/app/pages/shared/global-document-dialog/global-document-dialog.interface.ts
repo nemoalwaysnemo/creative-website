@@ -6,7 +6,7 @@ export class GlobalDocumentDialogSettings {
 
   components: any[];
 
-  containerType: string;
+  containerLayout: string;
 
   main?: Type<any>;
 

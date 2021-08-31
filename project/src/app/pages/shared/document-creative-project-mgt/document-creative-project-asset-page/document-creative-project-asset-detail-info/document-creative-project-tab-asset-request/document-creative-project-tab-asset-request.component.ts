@@ -88,7 +88,7 @@ export class DocumentCreativeProjectTabAssetRequestComponent extends DocumentCre
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
-  setDocument(doc: DocumentModel): void {
+  performDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
       this.loading = false;

@@ -15,7 +15,7 @@ import { DocumentPageService } from '../services/document-page.service';
 })
 export class GlobalDocumentDialogComponent extends DocumentDialogContainerComponent {
 
-  dialogContainerWidth: string = 'global-document-dialog-container';
+  dialogContainerLayout: string = 'global-document-dialog-container';
 
   @Input()
   set settings(settings: GlobalDocumentDialogSettings) {
@@ -23,7 +23,7 @@ export class GlobalDocumentDialogComponent extends DocumentDialogContainerCompon
       this.components = settings.components;
       this.dialogSettings = Object.assign({}, this.dialogSettings, settings.metadata);
       this.mainComponent = settings.main || settings.components[0];
-      this.dialogContainerWidth = settings.containerType;
+      this.dialogContainerLayout = settings.containerLayout;
     }
   }
 

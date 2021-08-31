@@ -47,18 +47,18 @@ export class DocumentCreativeUsageRightsRowRenderComponent {
   template: '<button class="button" (click)="onClick()">Link Asset</button>',
 })
 
-export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, OnDestroy{
+export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, OnDestroy {
 
   constructor(
     protected documentPageService: DocumentPageService,
-  ) {}
+  ) { }
 
   subscription: Subscription = new Subscription();
 
   @Input() value: { uid: any; type: any };
 
   onClick(): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'LinkAssetClick', data: this.value}));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'LinkAssetClick', data: this.value }));
   }
 
   ngOnDestroy(): void {
@@ -87,11 +87,7 @@ export class DocumentCreativeUsageRightsLinkButtonComponent implements OnInit, O
 })
 export class DocumentCreativeProjectUsageRightsListComponent {
 
-  @Output() value$: Subject<any> = new Subject<any>();
-
   usageRights: any = {};
-
-  doc: DocumentModel;
 
   loading: boolean = true;
 
@@ -148,16 +144,12 @@ export class DocumentCreativeProjectUsageRightsListComponent {
     },
   };
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    private advanceSearchService: AdvanceSearchService,
-  ) {}
-
   @Input()
   set document(doc: DocumentModel) {
-    this.doc = doc;
     this.loading = false;
   }
+
+  @Output() value$: Subject<any> = new Subject<any>();
 
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
@@ -167,7 +159,7 @@ export class DocumentCreativeProjectUsageRightsListComponent {
         type: { url: this.getTypeImage(doc) },
         title: { types: doc.get('The_Loupe_Rights:contract_items_usage_types'), title: doc.title },
         usageRights: doc.get('_usage_rights_'),
-        link: { uid: doc.uid, type: doc.type},
+        link: { uid: doc.uid, type: doc.type },
       }));
     }
     return items;
@@ -176,6 +168,11 @@ export class DocumentCreativeProjectUsageRightsListComponent {
   afterSearch: (res: SearchResponse) => Observable<SearchResponse> = (res: SearchResponse) => {
     return this.getUsageRightsStatus(res);
   };
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    private advanceSearchService: AdvanceSearchService,
+  ) { }
 
   protected buildContractUid(doc: DocumentModel): void {
     const model: string = doc.get('The_Loupe_Talent:Contract-Model-IDs');

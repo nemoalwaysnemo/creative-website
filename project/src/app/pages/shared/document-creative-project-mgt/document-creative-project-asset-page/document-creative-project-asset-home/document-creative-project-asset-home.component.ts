@@ -164,7 +164,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
-          enableClick: true,
+          enableDialog: true,
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
@@ -306,7 +306,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     };
     if (doc) {
       params['ecm_uuid_not_eq'] = doc.uid;
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     if (brand) {
       params['ecm_path'] = brand.path;

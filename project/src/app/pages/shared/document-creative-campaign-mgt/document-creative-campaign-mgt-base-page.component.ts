@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+
 @Component({
   template: '',
 })

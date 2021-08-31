@@ -31,8 +31,6 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
 
   formViewSettings: any;
 
-  doc: DocumentModel;
-
   assetList: DocumentModel[] = [];
 
   searchFormSettings: any;
@@ -127,11 +125,10 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
-  protected setDocument(doc: DocumentModel): void {
+  protected performDocument(doc: DocumentModel): void {
     if (doc) {
-      this.doc = doc;
-      timer(0).subscribe(() => { this.buildAssetParams(doc); });
       this.loading = false;
+      timer(0).subscribe(() => { this.buildAssetParams(doc); });
     }
   }
 
@@ -244,7 +241,7 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     };
     if (doc) {
       params['collectionIds_not_in'] = `["${doc.uid}"]`;
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     return params;
   }
@@ -257,7 +254,7 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     };
     if (doc) {
       params['ecm_uuid_not_eq'] = doc.uid;
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     if (brand) {
       params['ecm_path'] = brand.path;

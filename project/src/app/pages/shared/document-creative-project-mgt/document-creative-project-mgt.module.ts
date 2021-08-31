@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NbSpinnerModule } from '@core/nebular/theme';
 import { DocumentCreativeProjectMgtComponent } from './document-creative-project-mgt.component';
 import { DocumentCreativeProjectAssetModule } from './document-creative-project-asset-page/document-creative-project-asset.module';
 import { DocumentCreativeProjectImportAssetModule } from './document-creative-project-import-asset-page/document-creative-project-import-asset.module';
@@ -10,6 +11,7 @@ import { DocumentCreativeProjectUsageRightsModule } from './document-creative-pr
 @NgModule({
   imports: [
     CommonModule,
+    NbSpinnerModule,
     DocumentCreativeProjectAssetModule,
     DocumentCreativeProjectImportAssetModule,
     DocumentCreativeProject3rdPartyImportAssetModule,

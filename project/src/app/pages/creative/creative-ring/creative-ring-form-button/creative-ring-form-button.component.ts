@@ -81,7 +81,7 @@ export class CreativeRingFormButtonComponent implements OnDestroy {
         throw new Error(`unknown document form component for '${type}'`);
     }
     return new GlobalDocumentDialogSettings({
-      containerType: 'middle-dialog-container',
+      containerLayout: 'middle-dialog-container',
       components,
       metadata: {
         formSettings: { formType: 'new', collectionType: doc.get('The_Loupe_Main:collection_type'), collectionName: doc.title },

@@ -19,9 +19,4 @@ export class DocumentCreativeProjectTabAssetUsageRightsComponent extends Documen
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
-  setDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document = doc;
-    }
-  }
 }

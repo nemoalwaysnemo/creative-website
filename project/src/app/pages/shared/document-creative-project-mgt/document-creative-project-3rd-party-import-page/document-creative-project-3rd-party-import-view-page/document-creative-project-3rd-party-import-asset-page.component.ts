@@ -20,14 +20,16 @@ import { NUXEO_DOC_TYPE } from '@environment/environment';
 })
 export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativeProjectMgtBasePageComponent {
 
-  doc: DocumentModel;
   loading: boolean = true;
+
   baseParams$: Subject<any> = new Subject<any>();
+
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
     schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Delivery', 'collection'],
     source: 'document-creative-project-import-requests-view',
     enableSearchInput: false,
   });
+
   listViewSettings: any = {
     hideHeader: false,
     hideSubHeader: true,
@@ -70,9 +72,8 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
-  protected setDocument(doc: DocumentModel): void {
+  protected setInputDocument(doc: DocumentModel): void {
     if (doc) {
-      this.doc = doc;
       this.loading = false;
       timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
     }
@@ -105,7 +106,7 @@ export class CreativeBrandProject3rdPartyImportComponent extends DocumentCreativ
       pageSize: 100,
     };
     if (doc) {
-      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle')}"]`;
+      params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     return params;
   }

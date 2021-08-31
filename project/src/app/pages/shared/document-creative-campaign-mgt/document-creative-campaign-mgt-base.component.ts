@@ -6,6 +6,7 @@ import { concatMap } from 'rxjs/operators';
 import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
 import { DocumentCreativeCampaignMgtBasePageComponent } from './document-creative-campaign-mgt-base-page.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+
 @Component({
   template: '',
 })

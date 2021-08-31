@@ -1,7 +1,8 @@
 import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
-import { DocumentModel, UserModel } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoPagination, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
@@ -15,7 +16,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    this.setDocument(doc);
+    this.setInputDocument(doc);
   }
 
   @Input()
@@ -53,6 +54,12 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
 
   protected onInit(): void {
 
+  }
+
+  protected setInputDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document = doc;
+    }
   }
 
   protected onDestroy(): void {
@@ -103,10 +110,10 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
     this.subscription.add(subscription);
   }
 
-  protected setDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document = doc;
-    }
+  protected search(params: any = {}): Observable<DocumentModel> {
+    return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
+      map((res: NuxeoPagination) => res.entries.shift()),
+    );
   }
 
   protected triggerChangeView(view: string, type: string, settings: CreativeProjectMgtSettings = {}): void {

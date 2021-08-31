@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, timer } from 'rxjs';
 import { DocumentModel, NuxeoSearchConstants } from '@core/api';
@@ -8,7 +9,6 @@ import { ListSearchRowCustomViewSettings } from '../../../shared/list-search-for
 import { DocumentPageService, GlobalDocumentViewComponent, GlobalSearchFormSettings, DocumentListViewItem, SearchFilterModel, SearchConditionModel, SearchDateRangeModel } from '@pages/shared';
 import { GLOBAL_DOCUMENT_DIALOG, GlobalDocumentDialogSettings, GlobalDocumentDialogService } from '../../../shared/global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'creative-brand-campaign-project-mgt',
@@ -76,13 +76,13 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'button',
-          enableClick: true,
+          enableDialog: true,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_CAMPAIGN_MGT,
               GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM,
             ],
-            containerType: 'wide-dialog-container',
+            containerLayout: 'wide-dialog-container',
           }),
         }),
         renderComponent: ListSearchRowCustomDialogComponent,
@@ -118,7 +118,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'button',
-          enableClick: true,
+          enableDialog: true,
           dialogSettings: new GlobalDocumentDialogSettings({
             components: [
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_MGT,
@@ -132,7 +132,10 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
               GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
               GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION,
             ],
-            containerType: 'wide-dialog-container',
+            containerLayout: 'wide-dialog-container',
+            metadata: {
+              documentType: 'project',
+            },
           }),
         }),
         renderComponent: ListSearchRowCustomDialogComponent,
@@ -170,12 +173,25 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
         type: 'custom',
         renderComponentData: new ListSearchRowCustomViewSettings({
           viewType: 'thumbnail',
-          // enableClick: true,
-          // dialogSettings: new GlobalDocumentDialogSettings({
-          //   components: [
-          //     // GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_ASSET,
-          //   ],
-          // }),
+          enableDialog: true,
+          dialogSettings: new GlobalDocumentDialogSettings({
+            components: [
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_MGT,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MUSIC_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_PHOTO_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_MODEL_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_VIDEO_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_AUDIO_FORM,
+              GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
+              GLOBAL_DOCUMENT_DIALOG.CUSTOM_DELETION,
+            ],
+            containerLayout: 'wide-dialog-container',
+            metadata: {
+              documentType: 'asset',
+            },
+          }),
         }),
         renderComponent: ListSearchRowCustomDialogComponent,
       },
@@ -225,8 +241,6 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     private globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(activatedRoute, documentPageService);
-    // this.dialogParams$.subscribe(p => {console.log(p);
-    // });
   }
 
   isSelectedProject(): boolean {
@@ -253,8 +267,8 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
     }
   }
 
-  openDialog(type: string, selectedMenu: string = '', selectedTab: string = ''): void {
-    this.globalDocumentDialogService.triggerEvent({ name: 'ButtonClicked', type: 'custom', messageContent: 'Upload Clicked', options: { document: this.selectedProject, selectedMenu, selectedTab } });
+  openDialog(document: DocumentModel): void {
+    this.globalDocumentDialogService.triggerEvent({ name: 'TriggerDialog', type: 'custom', messageContent: 'Trigger Dialog', options: { document } });
   }
 
   protected getCurrentDocumentSearchParams(): any {

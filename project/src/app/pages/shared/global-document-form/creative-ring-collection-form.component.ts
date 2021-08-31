@@ -187,7 +187,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
                   type: 'custom',
                   renderComponentData: new ListSearchRowCustomViewSettings({
                     viewType: 'thumbnail',
-                    enableClick: true,
+                    enableDialog: true,
                   }),
                   renderComponent: ListSearchRowCustomViewComponent,
                 },
