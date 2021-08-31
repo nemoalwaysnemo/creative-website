@@ -1,5 +1,6 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NbMenuItem } from '@core/nebular/theme';
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { DocumentCreativeCampaignMgtBasePageComponent } from './document-creative-campaign-mgt-base-page.component';
 import { TAB_CONFIG } from './document-creative-campaign-mgt-tab-config';
@@ -16,8 +17,9 @@ export class DocumentCreativeCampaignMgtComponent extends DocumentCreativeCampai
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
   protected onInit(): void {

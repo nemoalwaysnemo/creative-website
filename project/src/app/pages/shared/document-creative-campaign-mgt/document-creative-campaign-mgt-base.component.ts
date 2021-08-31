@@ -5,7 +5,7 @@ import { of as observableOf, Observable, Subject, combineLatest } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
 import { DocumentCreativeCampaignMgtBasePageComponent } from './document-creative-campaign-mgt-base-page.component';
-
+import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 @Component({
   template: '',
 })
@@ -24,15 +24,13 @@ export class DocumentCreativeCampaignMgtBaseComponent extends DocumentCreativeCa
   protected templateSettings$: Subject<CreativeCampaignMgtSettings> = new Subject<CreativeCampaignMgtSettings>();
 
   protected document$: Subject<DocumentModel> = new Subject<DocumentModel>();
-
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
-  ) {
-    super(documentPageService, componentFactoryResolver);
+    protected globalDocumentDialogService: GlobalDocumentDialogService) {
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.onDocumentChanged();
   }
-
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeCampaignMgtSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }

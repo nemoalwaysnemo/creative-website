@@ -16,6 +16,7 @@ import { map } from 'rxjs/operators';
 import { vocabularyFormatter } from '@core/services/helpers';
 import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
 import { DocumentCreativeCampaignAssetHomeMenuComponent } from './document-creative-campaign-asset-home-action/document-creative-compaign-asset-home-menu.component';
+import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 @Component({
   template: `
     <ng-container *ngIf="value" [ngSwitch]="true">
@@ -157,9 +158,10 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
     private advanceSearchService: AdvanceSearchService,
   ) {
-    super(documentPageService, componentFactoryResolver);
+    super(documentPageService, componentFactoryResolver,globalDocumentDialogService);
     this.subscribeHomeEvents();
   }
 
@@ -206,6 +208,7 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
       homeView: 'asset-home-view',
       formMode: mode,
       showMessageBeforeSave: false,
+      mainViewDocument: this.document,
       // batchDocuments: this.selectedItems,
       campaign: this.document,
     };
@@ -254,7 +257,8 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
         mainViewChanged: true,
         document: event.data.document,
         project: this.document,
-        homeTemplate: 'creative-project-mgt-template',
+        mainViewDocument: this.document,
+        homeTemplate: 'creative-campaign-mgt-template',
         homePage: 'asset-page',
         homeView: 'asset-detail-view',
       }));
