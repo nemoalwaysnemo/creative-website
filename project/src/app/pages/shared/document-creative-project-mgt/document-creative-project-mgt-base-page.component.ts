@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, GlobalSearchParams, NuxeoPagination, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
@@ -70,6 +70,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
   protected changeView(component: Type<any>, settings: any = {}): void {
     if (component) {
       this.clearDynamicComponent();
+      timer(0).subscribe(() => { this.performMainViewChangedSettings(settings); });
       this.buildComponent(this.dynamicTarget, component, settings);
     }
   }
@@ -92,6 +93,10 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
     this.dynamicComponentRef.instance.settings = settings;
   }
 
+  protected performMainViewChangedSettings(settings: CreativeProjectMgtSettings): void {
+
+  }
+
   protected subscribeEvents(): void {
     const subscription = this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
       if (event.name === 'SelectedComponentChanged') {
@@ -110,9 +115,9 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
     this.subscription.add(subscription);
   }
 
-  protected search(params: any = {}): Observable<DocumentModel> {
+  protected search(params: any = {}): Observable<DocumentModel[]> {
     return this.documentPageService.advanceRequest(new GlobalSearchParams(params)).pipe(
-      map((res: NuxeoPagination) => res.entries.shift()),
+      map((res: NuxeoPagination) => res.entries),
     );
   }
 

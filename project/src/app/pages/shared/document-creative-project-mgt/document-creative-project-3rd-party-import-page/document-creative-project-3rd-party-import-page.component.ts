@@ -26,7 +26,7 @@ export class DocumentCreativeProject3rdPartyImportComponent extends DocumentCrea
 
   protected onInit(): void {
     const component = this.templateSettings.homeView ? this.getAssetViewConfig(this.templateSettings.homeView).component : DocumentCreativeProject3rdImportRequestComponent;
-    this.changeView(component);
+    this.changeView(component, this.templateSettings);
   }
 
   protected onViewChanged(event: GlobalEvent): void {

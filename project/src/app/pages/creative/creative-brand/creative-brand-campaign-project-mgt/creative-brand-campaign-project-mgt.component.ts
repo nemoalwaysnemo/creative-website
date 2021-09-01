@@ -189,6 +189,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
             ],
             containerLayout: 'wide-dialog-container',
             metadata: {
+              mainViewChanged: true,
               documentType: 'asset',
               homePage: 'asset-page',
               homeTemplate: 'creative-project-mgt-template',

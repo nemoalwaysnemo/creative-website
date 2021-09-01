@@ -70,6 +70,9 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
   backToMainView(componentName: string = null, component: Type<any> = null, metadata?: any): void {
     const m = this.mainViewChanged;
     const settings = metadata || (m.metadata || []).pop();
+    if (this.getExcludeHomeViews().includes(settings.homeView)) {
+      settings.mainViewChanged = false;
+    }
     this.globalDocumentDialogService.backToMainView(componentName || m.componentName, settings || this.getDialogSettings(), component || m.component);
   }
 
@@ -148,6 +151,10 @@ export class DocumentDialogBaseTemplateComponent implements OnInit, OnDestroy {
   protected onConfirmed(doc: DocumentModel): void { }
 
   protected onCancelled(): void { }
+
+  protected getExcludeHomeViews(): string[] {
+    return [];
+  }
 
   protected subscribeDialogBuiltInEvents(): void {
     const subscription = this.globalDocumentDialogService.onEventType('built-in').subscribe((e: DocumentDialogEvent) => {
