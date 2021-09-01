@@ -19,7 +19,6 @@ import { map } from 'rxjs/operators';
 })
 export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreativeProjectMgtBaseComponent {
 
-
   batchDocuments: DocumentModel[];
 
   brand: DocumentModel;

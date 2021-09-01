@@ -125,7 +125,7 @@ export class DocumentCreativeProjectRelatedAssetComponent extends DocumentCreati
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
-  protected performDocument(doc: DocumentModel): void {
+  protected setInputDocument(doc: DocumentModel): void {
     if (doc) {
       this.loading = false;
       timer(0).subscribe(() => { this.buildAssetParams(doc); });

@@ -200,6 +200,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       },
     },
   };
+
   selectedItems: DocumentModel[] = [];
 
   listViewBuilderAsset: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {

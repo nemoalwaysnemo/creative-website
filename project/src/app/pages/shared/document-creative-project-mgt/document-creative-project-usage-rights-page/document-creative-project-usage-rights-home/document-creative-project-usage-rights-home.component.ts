@@ -25,6 +25,7 @@ export class DocumentCreativeProjectUsageRightHomeComponent extends DocumentCrea
   selectAssets: DocumentModel[] = [];
 
   usageRightNavSettings: ProjectMgtNavigationSettings;
+
   assetNavSettings: ProjectMgtNavigationSettings;
 
   target: DocumentModel;

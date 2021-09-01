@@ -31,7 +31,7 @@ export class DocumentCreativeProjectTabAssetInfoComponent extends DocumentCreati
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
   }
 
-  performDocument(doc: DocumentModel): void {
+  protected setInputDocument(doc: DocumentModel): void {
     if (doc) {
       this.document = doc;
       this.hasGroup$ = this.hasUserGroup();
