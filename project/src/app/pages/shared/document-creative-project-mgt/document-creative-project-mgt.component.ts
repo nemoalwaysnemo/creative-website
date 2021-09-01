@@ -54,8 +54,8 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
       ecm_fulltext: '',
       pageSize: 1,
     };
-    return settings.documentType === 'asset' ? this.search(params).pipe(
-      map((d: DocumentModel) => doc.setParent(d, 'project')),
+    return settings.documentType === 'asset' && !doc.hasParent('project') ? this.search(params).pipe(
+      map((d: DocumentModel[]) => doc.setParent(d.shift(), 'project')),
     ) : observableOf(doc);
   }
 

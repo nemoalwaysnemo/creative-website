@@ -25,7 +25,7 @@ export class DocumentCreativeProjectUsageRightsComponent extends DocumentCreativ
 
   protected onInit(): void {
     const component = this.templateSettings.homeView ? this.getAssetViewConfig(this.templateSettings.homeView).component : DocumentCreativeProjectUsageRightHomeComponent;
-    this.changeView(component);
+    this.changeView(component, this.templateSettings);
   }
 
   protected onViewChanged(event: GlobalEvent): void {

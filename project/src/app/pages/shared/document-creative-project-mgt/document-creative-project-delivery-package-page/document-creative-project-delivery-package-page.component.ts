@@ -26,7 +26,7 @@ export class DocumentCreativeProjectDeliveryPackagePageComponent extends Documen
 
   protected onInit(): void {
     const component = this.templateSettings.homeView ? this.getAssetViewConfig(this.templateSettings.homeView).component : DocumentCreativeProjectDeliveryPackageHomeComponent;
-    this.changeView(component);
+    this.changeView(component, this.templateSettings);
   }
 
   protected onViewChanged(event: GlobalEvent): void {

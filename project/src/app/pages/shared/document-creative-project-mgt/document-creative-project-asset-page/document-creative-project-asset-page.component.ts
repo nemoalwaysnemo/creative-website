@@ -4,6 +4,7 @@ import { DocumentPageService, GlobalEvent } from '../../services/document-page.s
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
 import { DocumentCreativeProjectMgtBasePageComponent } from '../document-creative-project-mgt-base-page.component';
 import { DocumentCreativeProjectAssetHomeComponent } from './document-creative-project-asset-home/document-creative-project-asset-home.component';
+import { CreativeProjectMgtSettings } from '../document-creative-project-mgt.interface';
 import { TAB_CONFIG } from './document-creative-project-mgt-asset-tab-config';
 
 @Component({
@@ -26,13 +27,29 @@ export class DocumentCreativeProjectAssetPageComponent extends DocumentCreativeP
 
   protected onInit(): void {
     const component = this.templateSettings.homeView ? this.getAssetViewConfig(this.templateSettings.homeView).component : DocumentCreativeProjectAssetHomeComponent;
-    this.changeView(component);
+    this.changeView(component, this.templateSettings);
   }
 
   protected onViewChanged(event: GlobalEvent): void {
     const data = this.getAssetViewConfig(event.data.view);
     if (data) {
       this.changeView(data.component, event.data.settings);
+    }
+  }
+
+  protected performMainViewChangedSettings(settings: CreativeProjectMgtSettings): void {
+    if (settings.mainViewChanged && settings.documentType === 'asset') {
+      const project: any = this.document.getParent('project') || {};
+      this.globalDocumentDialogService.mainViewChanged(settings.mainViewChanged, new CreativeProjectMgtSettings({
+        mainViewChanged: true,
+        title: project.title,
+        project,
+        document: this.document,
+        mainViewDocument: project,
+        homeTemplate: 'creative-project-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-home-view',
+      }));
     }
   }
 

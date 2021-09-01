@@ -26,7 +26,7 @@ export class DocumentCreativeProjectImportAssetComponent extends DocumentCreativ
 
   protected onInit(): void {
     const component = this.templateSettings.homeView ? this.getAssetViewConfig(this.templateSettings.homeView).component : DocumentCreativeProjectImportAssetHomeComponent;
-    this.changeView(component);
+    this.changeView(component, this.templateSettings);
   }
 
   protected onViewChanged(event: GlobalEvent): void {

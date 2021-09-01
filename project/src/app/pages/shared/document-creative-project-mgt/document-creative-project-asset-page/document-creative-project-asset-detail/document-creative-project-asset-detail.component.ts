@@ -99,4 +99,5 @@ export class DocumentCreativeProjectAssetDetailComponent extends DocumentCreativ
       share(),
     );
   }
+
 }
