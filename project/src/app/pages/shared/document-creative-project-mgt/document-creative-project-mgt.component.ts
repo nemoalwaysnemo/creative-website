@@ -7,7 +7,7 @@ import { TAB_CONFIG } from './document-creative-project-mgt-tab-config';
 import { DocumentModel, NuxeoSearchConstants, UserModel } from '@core/api';
 import { CreativeProjectMgtSettings } from './document-creative-project-mgt.interface';
 import { of as observableOf, Observable, Subject, combineLatest } from 'rxjs';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap, map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
@@ -55,9 +55,7 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
       pageSize: 1,
     };
     return settings.documentType === 'asset' ? this.search(params).pipe(
-      tap((d: DocumentModel) => {
-        d.setParent(doc, 'asset');
-      }),
+      map((d: DocumentModel) => doc.setParent(d, 'project')),
     ) : observableOf(doc);
   }
 
@@ -89,7 +87,6 @@ export class DocumentCreativeProjectMgtComponent extends DocumentCreativeProject
   protected performDocument(doc: DocumentModel, user: UserModel, settings: CreativeProjectMgtSettings): void {
     const page = this.getAssetPageConfig(this.templateSettings.homePage) || this.getDefaultPageConfig();
     if (page) {
-      console.log(22222, this.document, this.templateSettings);
       this.changeView(page.component, this.templateSettings);
     }
   }

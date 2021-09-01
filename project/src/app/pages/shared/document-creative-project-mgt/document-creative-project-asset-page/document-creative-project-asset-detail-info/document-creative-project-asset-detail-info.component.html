@@ -2,7 +2,7 @@
 <div class="creative-project-asset-detail-info">
   <div class="page-content">
     <nb-tabset fullWidth (changeTab)="onChangTab($event)">
-      <nb-tab *ngFor="let item of tabItems" [active]="currentTab && currentTab.name === item.name" tabTitle="{{item.name}}" class="nb-tab" responsive>
+      <nb-tab *ngFor="let item of tabItems" [active]="currentTab && currentTab.name === item.name" tabTitle="{{item.name}}"  class="nb-tab" responsive>
         <ng-template [ngTemplateOutlet]="templateRef"></ng-template>
       </nb-tab>
     </nb-tabset>

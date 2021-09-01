@@ -58,7 +58,7 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
   });
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
-    schemas: ['dublincore', 'The_Loupe_Main', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
+    schemas: ['dublincore', 'file', 'files', 'video', 'picture', 'The_Loupe_Main', 'The_Loupe_Talent', 'The_Loupe_Credits', 'The_Loupe_ProdCredits', 'The_Loupe_Rights'],
     source: 'list-search-form-campaign-asset',
   });
 
@@ -190,6 +190,9 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
             containerLayout: 'wide-dialog-container',
             metadata: {
               documentType: 'asset',
+              homePage: 'asset-page',
+              homeTemplate: 'creative-project-mgt-template',
+              homeView: 'asset-detail-view',
             },
           }),
         }),

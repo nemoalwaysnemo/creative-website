@@ -80,22 +80,6 @@ export class DocumentCreativeProjectTabAssetRequestComponent extends DocumentCre
     },
   };
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
-  }
-
-  performDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document = doc;
-      this.loading = false;
-      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
-    }
-  }
-
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
     const items = [];
     for (const doc of docs) {
@@ -114,6 +98,22 @@ export class DocumentCreativeProjectTabAssetRequestComponent extends DocumentCre
     }
     return items;
   };
+
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+  }
+
+  protected setInputDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document = doc;
+      this.loading = false;
+      timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc)); });
+    }
+  }
 
   protected buildAssetParams(doc: DocumentModel): any {
     const params: any = {
