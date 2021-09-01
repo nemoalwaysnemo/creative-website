@@ -59,8 +59,8 @@ export class DocumentCreativeProjectMgtBaseComponent extends DocumentCreativePro
         observableOf(settings),
       ])),
     ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, CreativeProjectMgtSettings]) => {
-      this.setDocument(doc, user, settings);
       this.prepareDocument(doc, user, settings);
+      this.setDocument(doc, user, settings);
       this.performDocument(doc, user, settings);
     });
     this.subscription.add(subscription);

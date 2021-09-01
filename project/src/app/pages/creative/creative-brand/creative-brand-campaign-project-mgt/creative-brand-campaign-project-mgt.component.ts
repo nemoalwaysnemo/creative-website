@@ -343,9 +343,11 @@ export class CreativeBrandCampaignProjectMgtComponent extends GlobalDocumentView
       ecm_fulltext: '',
       pageSize: 100,
     };
+
     if (doc) {
       params['ecm_path'] = doc.path;
     }
+
     if (campaign) {
       params['the_loupe_main_campaign'] = `["${campaign.get('The_Loupe_Main:campaign')}"]`;
       params['ecm_uuid_not_eq'] = doc.uid;

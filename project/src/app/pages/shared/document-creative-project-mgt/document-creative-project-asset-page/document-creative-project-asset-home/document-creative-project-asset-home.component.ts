@@ -1,7 +1,8 @@
 import { Component, ComponentFactoryResolver, ComponentRef, Input, Type, ViewChild, ViewContainerRef } from '@angular/core';
-import { NbMenuItem } from '@core/nebular/theme';
-import { vocabularyFormatter } from '@core/services/helpers';
 import { DocumentModel, NuxeoAutomations, NuxeoPagination, SearchResponse, UserModel } from '@core/api';
+import { vocabularyFormatter } from '@core/services/helpers';
+import { NbMenuItem } from '@core/nebular/theme';
+import { DatePipe } from '@angular/common';
 import { DocumentListViewItem } from '../../../document-list-view/document-list-view.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { ListSearchRowCustomViewSettings } from '../../../list-search-form/list-search-form.interface';
@@ -12,13 +13,11 @@ import { GlobalDocumentDialogService } from '../../../global-document-dialog/glo
 import { SearchFilterModel } from '../../../../shared/global-search-filter/global-search-filter.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
-import { of as observableOf, Observable } from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { of as observableOf, Observable, Subject, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { DocumentCreativeProjectAssetHomeMenuComponent } from './document-creative-project-asset-home-action/document-creative-project-asset-home-menu.component';
 import { DocumentCreativeProjectModifyAssetsComponent } from '../document-creative-project-modify-assets/document-creative-project-modify-assets.component';
-import { DocumentListViewService } from '../../../document-list-view/document-list-view.service';
+import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
   template: `
@@ -45,16 +44,9 @@ export class DocumentCreativeProjectAssetRowRenderComponent {
 })
 export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeProjectMgtBaseComponent {
 
-  constructor(
-    protected documentPageService: DocumentPageService,
-    protected componentFactoryResolver: ComponentFactoryResolver,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
-    this.subscribeHomeEvents();
-  }
-
   @ViewChild('dynamicTarget', { static: true, read: ViewContainerRef }) dynamicTarget: ViewContainerRef;
+
+  baseParams$: Subject<any> = new Subject<any>();
 
   dynamicComponent: ComponentRef<any>;
 
@@ -137,12 +129,6 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     new SearchFilterModel({ key: 'the_loupe_rights_contract_mediatypes_agg', placeholder: 'Media Usage' }),
   ];
 
-  defaultParams: any = {
-    ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES,
-    currentPageIndex: 0,
-    ecm_fulltext: '',
-  };
-
   navSettings: ProjectMgtNavigationSettings;
 
   searchFormSettingsAsset: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -223,6 +209,15 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     return this.getUsageRightsStatus(res);
   };
 
+  constructor(
+    protected documentPageService: DocumentPageService,
+    protected componentFactoryResolver: ComponentFactoryResolver,
+    protected globalDocumentDialogService: GlobalDocumentDialogService,
+  ) {
+    super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+    this.subscribeHomeEvents();
+  }
+
   vocabularyFormatter(list: string[]): string {
     return vocabularyFormatter(list);
   }
@@ -236,9 +231,9 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     this.createComponent(this.LEFT_COMP.home_menu);
   }
 
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
+  protected performDocument(doc: DocumentModel, user: UserModel, settings: CreativeProjectMgtSettings): void {
     this.navSettings = this.buildNavSettings(doc);
-    return observableOf(doc);
+    timer(0).subscribe(() => { this.baseParams$.next(this.buildAssetParams(doc, doc.getParent('brand'))); });
   }
 
   protected createComponent(component: Type<any>): void {
@@ -246,10 +241,10 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
     this.dynamicComponent.instance.actions$.next(this.buildActions(false));
     this.dynamicComponent.instance.document = this.document;
     const subscription = this.dynamicComponent.instance.itemClick.subscribe((item: NbMenuItem) => {
-      if (item.id !== 'modify-assets'){
+      if (item.id !== 'modify-assets') {
         const itemInfo = item.triggerChangeSettings;
         this.triggerChangeView(itemInfo['name'], itemInfo['type'], this.createMgtSettings(itemInfo['formMode']));
-      }else{
+      } else {
         this.setFormComponent();
       }
     });
@@ -306,7 +301,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       pageSize: 100,
     };
     if (doc) {
-      params['ecm_uuid_not_eq'] = doc.uid;
+      // params['ecm_uuid_not_eq'] = doc.uid;
       params['the_loupe_main_jobtitle_any'] = `["${doc.get('The_Loupe_Main:jobtitle').join('", "')}"]`;
     }
     if (brand) {

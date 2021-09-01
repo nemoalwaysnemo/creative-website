@@ -39,6 +39,7 @@ export class DocumentCreativeProjectAssetPageComponent extends DocumentCreativeP
 
   protected performMainViewChangedSettings(settings: CreativeProjectMgtSettings): void {
     if (settings.mainViewChanged && settings.documentType === 'asset') {
+      delete settings.documentType;
       const project: any = this.document.getParent('project') || {};
       this.globalDocumentDialogService.mainViewChanged(settings.mainViewChanged, new CreativeProjectMgtSettings({
         mainViewChanged: true,
