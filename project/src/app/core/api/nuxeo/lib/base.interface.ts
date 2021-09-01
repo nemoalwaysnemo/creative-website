@@ -58,6 +58,7 @@ export enum NuxeoQuickFilters {
   Alphabetically = 'Alphabetically',
   ProductionDate = 'ProductionDate',
   BackslashEdgePage = 'BackslashEdgePage',
+  CreatedDate = 'CreatedDate',
 }
 
 export enum NuxeoSortByFields {

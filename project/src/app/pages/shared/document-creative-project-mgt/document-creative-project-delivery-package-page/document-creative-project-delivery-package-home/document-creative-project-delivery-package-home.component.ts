@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { DocumentModel, GlobalSearchParams, UserModel } from '@core/api';
+import { DocumentModel, GlobalSearchParams, NuxeoQuickFilters, UserModel } from '@core/api';
 import { NbMenuItem } from '@core/nebular/theme';
 import { Observable, of as observableOf } from 'rxjs';
 import { ListSearchRowCustomViewComponent } from '../../../list-search-form-in-dialog';
@@ -79,10 +79,6 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
         }),
         renderComponent: ListSearchRowCustomViewComponent,
       },
-      receipient: {
-        title: 'Recipient',
-        sort: false,
-      },
       date: {
         title: 'Date sent',
         sort: false,
@@ -90,8 +86,20 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
           return value ? new DatePipe('en-US').transform(value, 'yyyy-MM-dd') : null;
         },
       },
+      subject: {
+        title: 'Subject',
+        sort: false,
+      },
+      receipient: {
+        title: 'Recipient',
+        sort: false,
+      },
       sender: {
         title: 'Sent by',
+        sort: false,
+      },
+      assets: {
+        title: '#assets',
         sort: false,
       },
     },
@@ -134,10 +142,12 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       items.push(new DocumentListViewItem({
         uid: doc.uid,
         icon: { url: '/assets/images/App-Library-Package.png' },
-        // receipient: doc.get('The_Loupe_Delivery:slingshot_delivery_email').join(', '),
-        receipient: doc.get('The_Loupe_Delivery:delivery_email'),
         date: doc.get('dc:created'),
+        // receipient: doc.get('The_Loupe_Delivery:slingshot_delivery_email').join(', '),
+        subject: doc.get('The_Loupe_Delivery:email_subject'),
+        receipient: doc.get('The_Loupe_Delivery:delivery_email'),
         sender: doc.get('dc:creator'),
+        assets: doc.get('collection:documentIds') ? doc.get('collection:documentIds').length : 'N/A',
       }));
       this.historyList.push(new PackageHistoryListViewItem({
         uid: doc.uid,
@@ -227,6 +237,7 @@ export class DocumentCreativeProjectDeliveryPackageHomeComponent extends Documen
       currentPageIndex: 0,
       ecm_fulltext: '',
       pageSize: 100,
+      quickFilters: NuxeoQuickFilters.CreatedDate,
     };
     if (doc) {
       params['ecm_path'] = doc.path;
