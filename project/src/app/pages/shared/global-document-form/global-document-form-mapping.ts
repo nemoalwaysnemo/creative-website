@@ -39,6 +39,7 @@ import { BackslashResourcesAssetFormComponent } from './backslash-resources-asse
 import { BackslashResourcesFolderFormComponent } from './backslash-resources-folder-form.component';
 import { BackslashTriggerFormComponent } from './backslash-trigger-form.component';
 import { LearningProgramFormComponent } from './learning-program-form.component';
+import { CreativeRingAddToCollectionFormComponent } from './creative-ring-add-to-collection-form.component';
 
 export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_ASSET_IMAGE_FORM: CreativeAssetImageFormComponent,
@@ -52,6 +53,7 @@ export const GLOBAL_DOCUMENT_FORM = {
   CREATIVE_CAMPAIGN_FORM: CreativeCampaignFormComponent,
   CREATIVE_PROJECT_FORM: CreativeProjectFormComponent,
   CREATIVE_RING_COLLECTION_FORM: CreativeRingCollectionFormComponent,
+  CREATIVE_RING_ADD_TO_COLLECTION_FORM: CreativeRingAddToCollectionFormComponent,
   CREATIVE_RING_UPLOAD_COLLECTION_FORM: CreativeRingCollectionUploadFormComponent,
   CREATIVE_RING_BRAND_COLLECTION_FORM: CreativeRingBrandCollectionFormComponent,
   CREATIVE_RING_ASSET_FORM: CreativeRingAssetFormComponent,

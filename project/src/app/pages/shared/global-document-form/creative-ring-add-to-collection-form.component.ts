@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DocumentModel, GlobalSearchParams, NuxeoAutomations, NuxeoPagination, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
+import { DocumentModel, GlobalSearchParams, NuxeoAutomations, NuxeoPagination, UserModel } from '@core/api';
+import { DynamicSuggestionModel, DynamicInputModel, DynamicDocumentSelectListModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -8,17 +8,20 @@ import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
 import { concatMap, map } from 'rxjs/operators';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
+import { DocumentListViewItem } from '../document-list-view/document-list-view.interface';
+import { ListSearchRowCustomViewComponent } from '../list-search-form-in-dialog';
+import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search-form.interface';
 import { SelectableItemService } from '../document-selectable/selectable-item/selectable-item.service';
 import { isValueEmpty } from '@core/services/helpers';
 
 @Component({
-  selector: 'creative-ring-collection-form',
-  templateUrl: './creative-ring-collection-form.component.html',
+  selector: 'creative-ring-add-to-collection-form',
+  templateUrl: './creative-ring-add-to-collection-form.component.html',
   styleUrls: ['./global-document-form.component.scss'],
 })
-export class CreativeRingCollectionFormComponent extends GlobalDocumentFormComponent {
+export class CreativeRingAddToCollectionFormComponent extends GlobalDocumentFormComponent {
 
-  static readonly NAME: string = 'creative-ring-collection-form';
+  static readonly NAME: string = 'creative-ring-add-to-collection-form';
 
   protected documentType: string = 'App-Library-CreativeRing-Collection';
 
@@ -32,10 +35,10 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
     if (doc.type === 'App-Library-CreativeRing-Collection') {
-      doc.setProperty('The_Loupe_Main:agency', ctx.sharedFormValue['The_Loupe_Main:agency'] || []);
-      doc.setProperty('The_Loupe_Main:country', ctx.sharedFormValue['The_Loupe_Main:country'] || null);
-      doc.setProperty('The_Loupe_Main:brand', ctx.sharedFormValue['The_Loupe_Main:brand'] || []);
-      doc.setProperty('The_Loupe_Main:assettype', ctx.sharedFormValue['The_Loupe_Main:assettype'] || null);
+      doc.setProperty('The_Loupe_Main:agency', ctx.formValue['The_Loupe_Main:agency'] || null);
+      doc.setProperty('The_Loupe_Main:country', ctx.formValue['The_Loupe_Main:country'] || []);
+      doc.setProperty('The_Loupe_Main:brand', ctx.formValue['The_Loupe_Main:brand'] || []);
+      doc.setProperty('The_Loupe_Main:assettype', ctx.formValue['The_Loupe_Main:assettype'] || null);
     }
     return observableOf(doc);
   };
@@ -93,7 +96,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    if (!this.enableUpload && event.action === 'SharedValueChanged' && this.sharedModelValid(event.formValue)) {
+    if (!this.enableUpload && event.action === 'FormValueChanged' && this.formModelValid(event.formValue)) {
       this.enableUpload = true;
     }
     return observableOf(event);
@@ -101,23 +104,8 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
 
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
     return new DocumentFormSettings({
-      acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
-      enableBulkImport: options.formType === 'new',
       docType: this.documentType,
       enableCreateMain: true,
-      importSettings: {
-        placeholder: 'Upload Assets',
-        batchUploadLayout: 'ringCollection',
-        getDocType: (item: NuxeoUploadResponse): string => {
-          if (['video'].some(x => item.mimeType.includes(x))) {
-            return 'App-Library-Video';
-          } else if (['image', 'pdf'].some(x => item.mimeType.includes(x))) {
-            return 'App-Library-Image';
-          } else if (['audio'].some(x => item.mimeType.includes(x))) {
-            return 'App-Library-Audio';
-          }
-        },
-      },
       formModel: [
         new DynamicInputModel({
           id: 'dc:title',
@@ -154,8 +142,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           hidden: true,
           defaultValue: 'Asset Collection',
         }),
-      ],
-      sharedModel: [
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:agency',
           label: 'Agency',
@@ -200,65 +186,57 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           validators: { required: null },
           errorMessages: { required: 'Asset Type is required' },
         }),
-      ],
-      importModel: [
-        new DynamicInputModel({
-          id: 'dc:title',
-          label: 'Title',
-          maxLength: 150,
-          placeholder: 'Title',
-          autoComplete: 'off',
-          required: true,
+        new DynamicDocumentSelectListModel({
+          id: 'selected-documents',
+          label: 'Selected Documents',
+          formMode: 'create',
+          layoutPosition: 'bottom',
           settings: {
-            layout: 'direction-horizontal',
+            documents: options.selectedDocuments,
+            listViewSettings: {
+              hideHeader: false,
+              selectMode: 'multi',
+              showCheckbox: true,
+              hideSubHeader: true,
+              columns: {
+                thumbnail: {
+                  title: 'Thumbnail',
+                  sort: false,
+                  type: 'custom',
+                  renderComponentData: new ListSearchRowCustomViewSettings({
+                    viewType: 'thumbnail',
+                    enableClick: true,
+                  }),
+                  renderComponent: ListSearchRowCustomViewComponent,
+                },
+                title: {
+                  title: 'Title',
+                  sort: false,
+                },
+              },
+            },
+            listViewBuilder: (docs: DocumentModel[]) => {
+              const items = [];
+              for (const doc of docs) {
+                items.push(new DocumentListViewItem({
+                  uid: doc.uid,
+                  title: doc.title,
+                  thumbnail: doc,
+                }));
+              }
+              return items;
+            },
           },
-          validators: {
-            required: null,
-            minLength: 4,
-          },
-          errorMessages: {
-            required: '{{label}} is required',
-            minLength: 'At least 4 characters',
-          },
-          visibleFn: (): boolean => options.formType === 'new',
-        }),
-        new DynamicSuggestionModel<string>({
-          id: 'The_Loupe_Main:brand',
-          label: 'Brand',
-          required: true,
-          settings: {
-            placeholder: 'What is this brand?',
-            providerType: SuggestionSettings.DIRECTORY,
-            providerName: 'App-Library-CreativeRing-Brands',
-            layout: 'direction-horizontal',
-          },
-          validators: { required: null },
-          errorMessages: { required: '{{label}} is required' },
-          visibleFn: (): boolean => options.formType === 'new',
-        }),
-        new DynamicSuggestionModel<string>({
-          id: 'The_Loupe_Main:assettype',
-          label: 'Asset Type',
-          required: true,
-          settings: {
-            multiple: false,
-            placeholder: 'What is this asset?',
-            providerType: SuggestionSettings.DIRECTORY,
-            providerName: 'App-Library-MediaTypes-Mixed',
-            layout: 'direction-horizontal',
-          },
-          validators: { required: null },
-          errorMessages: { required: '{{label}} is required' },
-          visibleFn: (): boolean => options.formType === 'new',
+          visibleFn: (): boolean => options.formType === 'add',
         }),
       ],
     });
   }
 
-  private sharedModelValid(formValue): boolean {
+  private formModelValid(formValue): boolean {
     let requiredAllFilled = true;
     Object.entries(formValue).forEach(([key, value]) => {
-      const valid = Object.values(this.getDocumentFormSettings().sharedModel).find((obj) => {
+      const valid = Object.values(this.getDocumentFormSettings().formModel).find((obj) => {
         return obj.name === key && obj.required === true && isValueEmpty(value);
       });
       if (!!valid) {

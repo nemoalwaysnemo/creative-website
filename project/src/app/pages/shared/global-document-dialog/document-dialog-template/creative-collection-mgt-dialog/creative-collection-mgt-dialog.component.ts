@@ -167,7 +167,7 @@ export class CreativeCollectionMgtDialogComponent extends DocumentDialogCustomTe
     this.subscription.add(subscription1);
     const subscription2 = this.documentPageService.onEvent('CustomGridClick').pipe(
     ).subscribe(_ => {
-      this.openDialog('creative-ring-collection-form');
+      this.openDialog('creative-ring-add-to-collection-form');
     });
     this.subscription.add(subscription2);
   }

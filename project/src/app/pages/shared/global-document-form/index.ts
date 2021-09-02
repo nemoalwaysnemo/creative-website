@@ -12,6 +12,7 @@ export * from './creative-asset-project-form.component';
 export * from './creative-ring-collection-form.component';
 export * from './creative-ring-brand-collection-form.component';
 export * from './creative-ring-collection-upload-form.component';
+export * from './creative-ring-add-to-collection-form.component';
 export * from './creative-ring-asset-form.component';
 export * from './disruption-roadmap-form.component';
 export * from './disruption-day-folder-form.component';
