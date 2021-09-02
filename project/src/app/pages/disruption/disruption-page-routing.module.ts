@@ -12,6 +12,7 @@ import { DisruptionAssetComponent } from './disruption-asset/disruption-asset.co
 import { DisruptionTheoryAssetComponent } from './disruption-theory-asset/disruption-theory-asset.component';
 import { DisruptionTheoryFolderComponent } from './disruption-theory-folder/disruption-theory-folder.component';
 import { DisruptionTheoryRemotePageComponent } from './disruption-theory-remote-page/disruption-theory-remote-page.component';
+import { DisruptionXDaysComponent } from './disruption-x-days/disruption-x-days.component';
 import { DisruptionXComponent } from './disruption-x/disruption-x.component';
 
 const routes: Routes = [{
@@ -61,6 +62,10 @@ const routes: Routes = [{
     {
       path: 'DisruptionX',
       component: DisruptionXComponent,
+    },
+    {
+      path: 'DisruptionX/Days',
+      component: DisruptionXDaysComponent,
     },
     {
       path: 'Things to Steal',

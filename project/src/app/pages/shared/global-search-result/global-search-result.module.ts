@@ -30,6 +30,7 @@ import { DisruptionTheoryAssetSearchResultComponent } from './disruption-theory-
 import { DisruptionThinkingAssetSearchResultComponent } from './disruption-thinking-asset-search-result/disruption-thinking-asset-search-result.component';
 import { DisruptionFolderDayAssetSearchResultComponent } from './disruption-folder-day-asset-search-result/disruption-folder-day-asset-search-result.component';
 import { DisruptionXModuleAssetSearchResultComponent } from './disruption-x-module-asset-search-result/disruption-x-module-asset-search-result.component';
+import { DisruptionXDaysAssetSearchResultComponent } from './disruption-x-days-asset-search-result/disruption-x-days-asset-search-result.component';
 import { IntelligenceIndustrySearchResultComponent } from './intelligence-industry-search-result/intelligence-industry-search-result.component';
 import { DisruptionDocumentAssetSearchResultComponent } from './disruption-document-asset-search-result/disruption-document-asset-search-result.component';
 import { DisruptionFolderTheoryAssetSearchResultComponent } from './disruption-folder-theory-asset-search-result/disruption-folder-theory-asset-search-result.component';
@@ -97,6 +98,7 @@ const COMPONENTS = [
   DisruptionFolderTheoryAssetSearchResultComponent,
   DisruptionDocumentAssetSearchResultComponent,
   DisruptionXModuleAssetSearchResultComponent,
+  DisruptionXDaysAssetSearchResultComponent,
   IntelligenceIndustrySearchResultComponent,
   IntelligenceDocumentAssetSearchResultComponent,
   BizDevOpportunityAssetSearchResultComponent,

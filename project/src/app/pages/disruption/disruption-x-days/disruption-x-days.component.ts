@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentModel, NuxeoPermission } from '@core/api';
+import { DocumentModel, NuxeoPermission, NuxeoSearchConstants } from '@core/api';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { Observable, of as observableOf } from 'rxjs';
 import { TAB_CONFIG } from '../disruption-tab-config';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
 @Component({
-  selector: 'disruption-x',
-  styleUrls: ['./disruption-x.component.scss'],
-  templateUrl: './disruption-x.component.html',
+  selector: 'disruption-x-days',
+  styleUrls: ['./disruption-x-days.component.scss'],
+  templateUrl: './disruption-x-days.component.html',
 })
-export class DisruptionXComponent extends GlobalDocumentViewComponent implements OnInit {
+export class DisruptionXDaysComponent extends GlobalDocumentViewComponent implements OnInit {
 
   tabConfig: any = TAB_CONFIG;
 
@@ -25,8 +25,9 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
   defaultParams: any = {
     currentPageIndex: 0,
     ecm_fulltext: '',
-    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
-    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_TYPE,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_X_DAYS_FOLDER_PATH'),
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_DAYS_TYPE,
+    ecm_mixinType: NuxeoSearchConstants.HiddenInNavigation,
   };
 
   searchFormSettings: GlobalSearchFormSettings = new GlobalSearchFormSettings({
@@ -48,11 +49,7 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
   protected setCurrentDocument(doc: DocumentModel): void {
     super.setCurrentDocument(doc);
     if (doc) {
-      if (doc.get('app_global:enable_feature') === true) {
-        this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
-      } else {
-        this.documentPageService.redirectTo403();
-      }
+      this.addChildrenPermission$ = doc.hasPermission(NuxeoPermission.AddChildren);
     }
   }
 
@@ -60,8 +57,8 @@ export class DisruptionXComponent extends GlobalDocumentViewComponent implements
     return {
       pageSize: 1,
       currentPageIndex: 0,
-      ecm_path_eq: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
-      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
+      ecm_path_eq: this.documentPageService.getConfig('path:DISRUPTION_X_DAYS_FOLDER_PATH'),
+      ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_DAYS_TYPE,
     };
   }
 

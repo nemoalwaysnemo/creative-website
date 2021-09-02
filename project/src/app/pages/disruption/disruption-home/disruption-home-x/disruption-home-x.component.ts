@@ -3,7 +3,7 @@ import { NuxeoPagination, DocumentModel, GlobalSearchParams } from '@core/api';
 import { BaseDocumentViewComponent } from '../../../shared/abstract-classes/base-document-view.component';
 import { DocumentPageService } from '../../../shared/services/document-page.service';
 import { concatMap, takeWhile, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { GlobalDocumentDialogService, GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
@@ -53,6 +53,13 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
     ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_FOLDER_TYPE,
   };
 
+  private assetDaysParams: any = {
+    pageSize: 1,
+    currentPageIndex: 0,
+    ecm_primaryType: NUXEO_DOC_TYPE.DISRUPTION_X_DAYS_TYPE,
+    ecm_path: this.documentPageService.getConfig('path:DISRUPTION_X_FOLDER_PATH'),
+  };
+
   private assetParams: any = {
     pageSize: 12,
     currentPageIndex: 0,
@@ -68,14 +75,14 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
   }
 
   onInit(): void {
-    this.performFolders();
+    this.searchFolders();
   }
 
   openDialog(dialog: TemplateRef<any>, closeOnBackdropClick: boolean = true): void {
     this.globalDocumentDialogService.open(dialog, { closeOnBackdropClick });
   }
 
-  private performFolders(): void {
+  private searchFolders(): void {
     const subscription = this.search(this.params).pipe(
       map((docs: DocumentModel[]) => docs.shift()),
       takeWhile((doc: DocumentModel) => {
@@ -87,7 +94,12 @@ export class DisruptionHomeXComponent extends BaseDocumentViewComponent {
         this.customEvent.next({ featureEnabled: this.enableFeature });
         return this.enableFeature;
       }),
-      concatMap(_ => this.search(this.assetParams)),
+      concatMap(_ => forkJoin([
+        this.search(this.assetDaysParams),
+        this.search(this.assetParams),
+      ]).pipe(
+        map((docsList: DocumentModel[][]) => [].concat.apply([], docsList)),
+      )),
     ).subscribe((docs: DocumentModel[]) => {
       this.documents = docs;
       this.loading = false;
