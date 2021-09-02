@@ -41,21 +41,33 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    if (event.action === 'Canceled' && (event.context.formMode === 'edit' || 'create')) {
-      this.goToAssetHome(event.context.formMode);
+    if ((event.action === 'Updated' || 'Canceled') && (event.context && event.context.formMode === 'edit')) {
+      this.goToProjectAssetHome();
+    } else if ((event.action === 'Created' || 'Canceled') && event.context) {
+      this.goToCampaignHome();
+      // possible --- need to judge if the form opened from 'outside' or 'campaign page'
+      // then use this to go to the project page just created here
+      // event.action = 'SelectView';
+      // event.metadata = {
+      //   mainViewChanged: false,
+      //   document: event.doc,
+      //   homeTemplate: 'creative-campaign-mgt-template',
+      //   homePage: 'campaign-asset-page',
+      //   homeView: 'campaign-asset-home-view',
+      // };
     }
     return observableOf(event);
   }
 
-  goToAssetHome(formMode): void {
-    const doc = formMode === 'create' ? this.document.getParent('campaign') : this.document;
-    const settings = new CreativeProjectMgtSettings({ document: doc, project: this.formSettings.project });
+
+  goToProjectAssetHome(): void {
+    const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   goToCampaignHome(): void {
     const settings = new CreativeProjectMgtSettings({ document: this.document.getParent('campaign'), project: this.formSettings.project });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'campaign-asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormAccordion(): any[] {

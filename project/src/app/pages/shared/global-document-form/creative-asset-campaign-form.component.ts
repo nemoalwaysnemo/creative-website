@@ -26,27 +26,26 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
-    // if (event.action === 'Created') {
-    if (event.action === 'Canceled') {
+    if (event.action === 'Created') {
       event.action = 'SelectView';
       event.metadata = {
         mainViewChanged: false,
         document: event.doc,
         homeTemplate: 'creative-campaign-mgt-template',
-        homePage: 'asset-page',
-        homeView: 'asset-home-view',
+        homePage: 'campaign-asset-page',
+        homeView: 'campaign-asset-home-view',
       };
     }
-    if (event.action === 'Canceled' && event.context.formMode === 'edit') {
-      // this.goToAssetHome();
+    if ((event.action === 'Updated' || event.action === 'Canceled') && event.context.formMode === 'edit') {
+      this.goToCampaignAssetHome();
     }
     return observableOf(event);
   }
 
-  // private goToAssetHome(): void {
-  //   const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
-  //   this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
-  // }
+  private goToCampaignAssetHome(): void {
+    const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'campaign-asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  }
 
   protected getFormModels(): any[] {
     return [
