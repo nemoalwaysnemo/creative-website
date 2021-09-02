@@ -204,8 +204,8 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
       document: mode === 'edit'? this.document : this.document.getParent(),
       project: this.templateSettings.project,
       homeTemplate: 'creative-campaign-mgt-template',
-      homePage: 'asset-page',
-      homeView: 'asset-home-view',
+      homePage: 'campaign-asset-page',
+      homeView: 'campaign-asset-home-view',
       formMode: mode,
       showMessageBeforeSave: false,
       mainViewDocument: this.document,
@@ -221,7 +221,7 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
 
   private buildNavSettings(doc: DocumentModel): any {
     return new CampaignMgtNavigationSettings({
-      currentPage: 'asset-page',
+      currentPage: 'campaign-asset-page',
       searchFormParams: this.buildAssetParams(doc, doc.getParent('brand')),
       searchFormFilters: this.filters,
       searchFormSettings: new GlobalSearchFormSettings({
@@ -259,7 +259,7 @@ export class DocumentCreativeCampaignAssetHomeComponent extends DocumentCreative
         project: this.document,
         mainViewDocument: this.document,
         homeTemplate: 'creative-campaign-mgt-template',
-        homePage: 'asset-page',
+        homePage: 'campaign-asset-page',
         homeView: 'asset-detail-view',
       }));
     });

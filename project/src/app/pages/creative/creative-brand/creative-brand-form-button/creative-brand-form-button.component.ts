@@ -49,6 +49,7 @@ export class CreativeBrandFormButtonComponent {
   private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
     let components: Type<DocumentModelForm>[] = [];
     let containerLayout = '';
+    let metadata = {};
     switch (type) {
       case 'image':
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM);
@@ -76,10 +77,23 @@ export class CreativeBrandFormButtonComponent {
           GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM,
           GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_CAMPAIGN_MGT,
         ];
+        metadata = {
+          formSettings: {
+            actionOptions: { schemas: '*' },
+          },
+        };
         containerLayout = 'wide-dialog-container';
         break;
       case 'project':
-        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM);
+        components = [
+          GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM,
+          GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_PROJECT_MGT,
+        ];
+        metadata = {
+          formSettings: {
+            actionOptions: { schemas: '*' },
+          },
+        };
         break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
@@ -87,11 +101,7 @@ export class CreativeBrandFormButtonComponent {
     return new GlobalDocumentDialogSettings({
       components,
       containerLayout,
-      // metadata: {
-      //   afterSave: (doc: any, user: any) => {
-      //     return observableOf(doc);
-      //   },
-      // },
+      metadata,
     });
   }
 

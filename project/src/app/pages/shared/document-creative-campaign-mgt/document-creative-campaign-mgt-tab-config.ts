@@ -3,7 +3,7 @@ import { DocumentCreativeCampaignAssetPageComponent } from './document-creative-
 
 export const TAB_CONFIG: NbMenuItem[] = [
   {
-    id: 'asset-page',
+    id: 'campaign-asset-page',
     title: 'Assets',
     selected: true,
     component: DocumentCreativeCampaignAssetPageComponent,

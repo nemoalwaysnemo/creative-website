@@ -3,7 +3,7 @@ import { DocumentCreativeCampaignAssetHomeComponent } from './document-creative-
 import { CreativeProjectFormComponent, CreativeCampaignFormComponent } from '../../../shared/global-document-form';
 export const TAB_CONFIG: NbMenuItem[] = [
   {
-    id: 'asset-home-view',
+    id: 'campaign-asset-home-view',
     title: 'Asset Home',
     component: DocumentCreativeCampaignAssetHomeComponent,
   },

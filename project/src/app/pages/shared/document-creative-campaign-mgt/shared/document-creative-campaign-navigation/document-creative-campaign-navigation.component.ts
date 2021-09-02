@@ -21,7 +21,7 @@ export class DocumentCreativeCampaignNavigationComponent implements OnInit, OnDe
 
   currentUser: UserModel;
 
-  defaultPage: string = 'asset-page';
+  defaultPage: string = 'campaign-asset-page';
 
   selectedItem: string;
 
