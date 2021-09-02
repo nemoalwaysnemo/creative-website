@@ -11,15 +11,27 @@
   </div>
   <div *ngIf="documents && documents.length > 0" [nbSpinner]="loading" nbSpinnerStatus="disabled" class="document s-results disruption-home">
     <div *ngFor="let doc of documents" class="thumbnail-view-item">
-      <div class="description">
-        <h1 [title]="doc.title"><a (click)="openDialog(dialog)">{{doc.title}}</a></h1>
-      </div>
-      <div class="image-holder">
-        <a [title]="doc.title" (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
-      </div>
-      <ng-template #dialog>
-        <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata" [redirectUrl]="redirectUrl"></global-document-dialog>
-      </ng-template>
+      <ng-container [ngSwitch]="doc.type">
+        <ng-container *ngSwitchCase="'App-Disruption-Days-Folder'">
+          <div class="description">
+            <h1 [title]="doc.title"><a [routerLink]="['/p/disruption/DisruptionX/Days']">{{doc.title}}</a></h1>
+          </div>
+          <div class="image-holder">
+            <a [title]="doc.title" [routerLink]="['/p/disruption/DisruptionX/Days']" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'App-DisruptionX-Module'">
+          <div class="description">
+            <h1 [title]="doc.title"><a (click)="openDialog(dialog)">{{doc.title}}</a></h1>
+          </div>
+          <div class="image-holder">
+            <a [title]="doc.title" (click)="openDialog(dialog)" [ngStyle]="{'background-image': 'url('+doc.thumbnailUrl+')'}"></a>
+          </div>
+          <ng-template #dialog>
+            <global-document-dialog [settings]="dialogSettings" [documentModel]="doc" [title]="disruptionTitle" [metadata]="dialogMetadata" [redirectUrl]="redirectUrl"></global-document-dialog>
+          </ng-template>
+        </ng-container>
+      </ng-container>
     </div>
     <div class="clear"></div>
   </div>
