@@ -55,7 +55,7 @@ td {
     height: 36px !important;
     padding-left: 8px;
     border: 1px solid #ccc;
-}
+  }
   .direction-horizontal {
     padding-right: 4px;
   }
@@ -70,6 +70,107 @@ td {
     width: 96px;
   }
 
+  .header-labels {
+    @media only screen and (max-width: 992px) {
+      width: 180px;
+    }
+
+    @media screen and (min-width: 992px) and (max-width: 1400px) {
+      width: 522px;
+    }
+
+    @media screen and (min-width: 1400px) {
+      width: 850px;
+    }
+  }
+
+  .labels-names {
+    display: block;
+    float: left;
+
+    @media only screen and (max-width: 992px) {
+      width: 140px;
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 158px;
+    }
+  }
+}
+
+::ng-deep .uploadAsset {
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    font-size: 14px;
+    letter-spacing: -1px;
+    padding: 0;
+  }
+  .form-control {
+    height: 36px !important;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+  }
+  .direction-horizontal {
+    padding-right: 4px;
+  }
+  .form-control {
+    @media only screen and (max-width: 1400px) {
+      margin-bottom: 4px;
+    }
+  }
+  .th_name {
+    width: 450px;
+  }
+  .th_size {
+    width: 120px;
+  }
+  .header-labels {
+    @media only screen and (max-width: 992px) {
+      width: 180px;
+    }
+    @media screen and (min-width: 992px) and (max-width: 1400px) {
+      width: 522px;
+    }
+    @media screen and (min-width: 1400px) {
+      width: 455px;
+    }
+  }
+  .labels-names {
+    display: block;
+    float: left;
+    @media only screen and (max-width: 992px) {
+      width: 140px;
+    }
+    @media screen and (min-width: 992px) {
+      width: 210px;
+    }
+  }
+}
+
+::ng-deep .ringCollection {
+  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    font-size: 14px;
+    letter-spacing: -1px;
+    padding: 0;
+  }
+  .form-control {
+    height: 36px !important;
+    padding-left: 8px;
+    border: 1px solid #ccc;
+  }
+  .direction-horizontal {
+    padding-right: 4px;
+  }
+  .form-control {
+    @media only screen and (max-width: 1400px) {
+      margin-bottom: 4px;
+    }
+  }
+  .th_name {
+    width: 600px;
+  }
+  .th_size {
+    width: 120px;
+  }
   .header-labels {
     @media only screen and (max-width: 992px) {
       width: 180px;

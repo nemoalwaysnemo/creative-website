@@ -311,12 +311,21 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
     return properties;
   }
 
+  protected prepareSharedProperties(props: any = {}, formValue: any = {}): any {
+    Object.keys(props).forEach((key: string) => {
+      if (!isValueEmpty(props[key])) {
+        delete formValue[key];
+      }
+    });
+    return this.prepareProperties(props, formValue);
+  }
+
   protected getFormValue(field?: string): any {
     return field ? this.formGroup.value[field] : this.formGroup.value;
   }
 
   protected getSharedFormValue(field?: string): any {
-    return this.sharedGroup ? (field ? this.sharedGroup.value[field] : this.sharedGroup.value) : {};
+    return Object.assign({}, this.sharedGroup ? (field ? this.sharedGroup.value[field] : this.sharedGroup.value) : {});
   }
 
   protected getUploadFiles(uploadModel: DynamicFormControlModel): NuxeoUploadResponse[] {
@@ -440,7 +449,7 @@ export class BaseDocumentFormComponent implements OnInit, OnDestroy {
       let model: DocumentModel;
       if (ctx.uploadModel.settings.enableForm) {
         if (res.document) {
-          res.document.properties = this.prepareProperties(res.document.properties, sharedProperties);
+          res.document.properties = this.prepareSharedProperties(res.document.properties, sharedProperties);
           model = res.document;
         } else if (!isValueEmpty(res.attributes)) {
           model = this.newDocumentModel(ctx.currentDocument, res.attributes);

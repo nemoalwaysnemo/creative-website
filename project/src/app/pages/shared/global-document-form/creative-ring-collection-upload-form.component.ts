@@ -2,15 +2,17 @@ import { Component } from '@angular/core';
 import { DocumentModel, NuxeoAutomations, NuxeoUploadResponse, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
-import { DocumentFormContext, DocumentFormSettings } from '../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
 import { SuggestionSettings } from '../document-form-extension';
 import { of as observableOf, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { isValueEmpty } from '@core/services/helpers';
 
 @Component({
   selector: 'creative-ring-collection-upload-form',
-  template: '<document-batch-operation [documentModel]="document" [settings]="formSettings" [beforeSaveValidation]="beforeSaveValidation" [beforeSave]="beforeSave" [afterSave]="afterSave" [afterFormSave]="afterFormSave" (callback)="onCallback($event)"></document-batch-operation>',
+  templateUrl: './creative-ring-collection-upload-form.component.html',
+  styleUrls: ['./global-document-form.component.scss'],
 })
 export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFormComponent {
 
@@ -18,13 +20,15 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
 
   protected documentType: string = 'App-Library-CreativeRing-Collection';
 
+  enableUpload: boolean = false;
+
   constructor(protected documentPageService: DocumentPageService) {
     super(documentPageService);
   }
 
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
-    const collection = ctx.performedDocuments[0];
-    const assetIds = ctx.formValue['selected-documents'] ? ctx.formValue['selected-documents'] : ctx.performedDocuments.slice(1).map((d: DocumentModel) => d.uid);
+    const collection = this.document;
+    const assetIds = (ctx.performedDocuments || []).map((d: DocumentModel) => d.uid);
     if (assetIds.length > 0) {
       return this.documentPageService.operation(NuxeoAutomations.AddToCollection, { collection: collection.uid }, assetIds).pipe(
         map(_ => ctx),
@@ -38,9 +42,15 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
     return observableOf(doc);
   }
 
+  protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
+    if (!this.enableUpload && event.action === 'SharedValueChanged' && this.sharedModelValid(event.formValue)) {
+      this.enableUpload = true;
+    }
+    return observableOf(event);
+  }
+
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
-    let agencyName = null;
-    let brandName = null;
+    let agencyName = null, brandName = null;
     if (options.collectionType === 'Agency Collection') {
       agencyName = options.collectionName;
     } else if (options.collectionType === 'Brand Collection') {
@@ -54,6 +64,7 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
       enableCreateMain: true,
       importSettings: {
         placeholder: 'Upload Assets',
+        batchUploadLayout: 'uploadAsset',
         getDocType: (item: NuxeoUploadResponse): string => {
           if (['video'].some(x => item.mimeType.includes(x))) {
             return 'App-Library-Video';
@@ -65,6 +76,13 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
         },
       },
       sharedModel: [
+        new DynamicInputModel({
+          id: 'The_Loupe_Main:brand',
+          label: 'Brand',
+          hidden: true,
+          defaultValue: [brandName],
+          visibleFn: (ctx: DocumentFormContext): boolean => brandName,
+        }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:brand',
           label: 'Brand',
@@ -74,10 +92,17 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'App-Library-CreativeRing-Brands',
             layout: 'direction-horizontal',
-            selectedItems: [brandName],
           },
           validators: { required: null },
-          errorMessages: { required: '' },
+          errorMessages: { required: '{{label}} is required' },
+          visibleFn: (ctx: DocumentFormContext): boolean => !brandName,
+        }),
+        new DynamicInputModel({
+          id: 'The_Loupe_Main:agency',
+          label: 'Agency',
+          hidden: true,
+          defaultValue: agencyName,
+          visibleFn: (ctx: DocumentFormContext): boolean => agencyName,
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:agency',
@@ -88,8 +113,10 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
             placeholder: 'What is this agency?',
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'GLOBAL_Agencies',
-            selectedItems: [agencyName],
           },
+          validators: { required: null },
+          errorMessages: { required: '{{label}} is required' },
+          visibleFn: (ctx: DocumentFormContext): boolean => !agencyName,
         }),
       ],
       importModel: [
@@ -131,4 +158,17 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
     });
   }
 
+  private sharedModelValid(formValue): boolean {
+    let requiredAllFilled = true;
+    Object.entries(formValue).forEach(([key, value]) => {
+      const valid = Object.values(this.getDocumentFormSettings().sharedModel).find((obj) => {
+        return obj.name === key && obj.required === true && isValueEmpty(value);
+      });
+      if (!!valid) {
+        requiredAllFilled = false;
+      }
+    },
+    );
+    return requiredAllFilled;
+  }
 }

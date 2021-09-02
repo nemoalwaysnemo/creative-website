@@ -77,6 +77,9 @@ export class CreativeRingFormButtonComponent implements OnDestroy {
       case 'upload-collection':
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_UPLOAD_COLLECTION_FORM);
         break;
+      case 'add-to-collection':
+        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_RING_ADD_TO_COLLECTION_FORM);
+        break;
       default:
         throw new Error(`unknown document form component for '${type}'`);
     }

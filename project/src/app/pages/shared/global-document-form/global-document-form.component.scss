@@ -1,20 +1,38 @@
 .ring-colletion-header {
   width: 100%;
-  height: 110px;
+  height: 86px;
   margin-bottom: 10px;
 }
 .ring-colletion-form-model {
-  width: 15%;
-  min-width: 450px;
+  width: 35%;
+  min-width: 220px;
   float: left;
   .ring-collection-form-title {
     float: left;
-    width: 45%;
+    width: 100%;
   }
-  .ring-collection-form-thumbnail {
+}
+.ring-add-to-colletion-form-template {
+  .ring-colletion-form-model {
+    width: 18%;
+  }
+  .ring-collection-user {
+    width: 77%;
+  }
+}
+.ring-colletion-share-form-model {
+  width: 100%;
+  // min-width: 220px;
+  float: left;
+  .ring-collection-brand {
     float: left;
-    margin-left: 10px;
-    margin-top: 34px;
+    width: 220px;
+  }
+  .ring-collection-agency {
+    float: left;
+    width: 225px;
+    margin-left: 5px;
+    margin-top: 10px;
   }
 }
 ::ng-deep .ring-colletion-form-model label {
@@ -26,8 +44,8 @@
   }
 }
 .ring-collection-user {
-  width: 50%;
-  min-width: 200px;
+  width: 60%;
+  min-width: 400px;
   float: right;
   .ring-collection-user-label {
     font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
@@ -35,15 +53,28 @@
     margin-right: 7px;
   }
   .ring-collection-user-agency {
-    float: left;
-    width: 205px;
+    float: right;
+    width: 180px;
   }
-  .ring-collection-user-country {
-    float: left;
-    width: 205px;
-    margin-left: 3px;
+  .ring-collection-user-country, .ring-collection-default-brand, .ring-collection-default-asset-type {
+    float: right;
+    width: 180px;
+    margin-left: 5px;
   }
 }
 ::ng-deep creative-ring-collection-form .button-groups {
+  padding: 0 !important;
+}
+
+::ng-deep creative-ring-collection-upload-form {
+  .button-groups {
+    padding: 0 !important;
+  }
+  .direction-horizontal {
+    width: 215px !important;
+  }
+}
+
+::ng-deep creative-ring-add-to-collection-form .button-groups {
   padding: 0 !important;
 }
