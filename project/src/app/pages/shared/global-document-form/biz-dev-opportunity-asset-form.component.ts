@@ -191,7 +191,7 @@ export class BizDevOpportunityAssetFormComponent extends GlobalDocumentFormCompo
         layoutPosition: 'right',
         settings: {
           queueLimit: 25,
-          placeholder: 'Drop Image/PDF/Video File here!',
+          placeholder: 'Drop Image/PDF/Video<br /> File(s) here!',
           acceptTypes: 'image/*,.pdf,.mp4',
         },
       }),
@@ -201,7 +201,7 @@ export class BizDevOpportunityAssetFormComponent extends GlobalDocumentFormCompo
         layoutPosition: 'right',
         settings: {
           queueLimit: 1,
-          placeholder: 'Drop Image/PDF/Video File here!',
+          placeholder: 'Drop Image/PDF/Video<br /> File(s) here!',
           acceptTypes: 'image/*,.pdf,.mp4',
         },
       }),

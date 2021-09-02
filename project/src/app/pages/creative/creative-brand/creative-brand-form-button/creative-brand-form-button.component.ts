@@ -4,7 +4,7 @@ import { DocumentModel, NuxeoPermission } from '@core/api';
 import { Observable, of as observableOf } from 'rxjs';
 import { GlobalDocumentDialogService, DocumentModelForm } from '../../../shared';
 import { GLOBAL_DOCUMENT_FORM } from '../../../shared/global-document-form';
-import { GlobalDocumentDialogSettings } from '../../../shared/global-document-dialog';
+import { GlobalDocumentDialogSettings, GLOBAL_DOCUMENT_DIALOG } from '../../../shared/global-document-dialog';
 
 @Component({
   selector: 'creative-brand-form-button',
@@ -47,7 +47,8 @@ export class CreativeBrandFormButtonComponent {
   }
 
   private getDialogFormSettings(type: string): GlobalDocumentDialogSettings {
-    const components: Type<DocumentModelForm>[] = [];
+    let components: Type<DocumentModelForm>[] = [];
+    let containerLayout = '';
     switch (type) {
       case 'image':
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_ASSET_IMAGE_FORM);
@@ -71,7 +72,11 @@ export class CreativeBrandFormButtonComponent {
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_USAGE_RIGHTS_STOCK_FORM);
         break;
       case 'campaign':
-        components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM);
+        components = [
+          GLOBAL_DOCUMENT_FORM.CREATIVE_CAMPAIGN_FORM,
+          GLOBAL_DOCUMENT_DIALOG.CUSTOM_CREATIVE_CAMPAIGN_MGT,
+        ];
+        containerLayout = 'wide-dialog-container';
         break;
       case 'project':
         components.push(GLOBAL_DOCUMENT_FORM.CREATIVE_PROJECT_FORM);
@@ -81,6 +86,7 @@ export class CreativeBrandFormButtonComponent {
     }
     return new GlobalDocumentDialogSettings({
       components,
+      containerLayout,
       // metadata: {
       //   afterSave: (doc: any, user: any) => {
       //     return observableOf(doc);

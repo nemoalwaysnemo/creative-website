@@ -26,16 +26,27 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
   }
 
   protected beforeOnCallback(event: DocumentFormEvent): Observable<DocumentFormEvent> {
+    // if (event.action === 'Created') {
+    if (event.action === 'Canceled') {
+      event.action = 'SelectView';
+      event.metadata = {
+        mainViewChanged: false,
+        document: event.doc,
+        homeTemplate: 'creative-campaign-mgt-template',
+        homePage: 'asset-page',
+        homeView: 'asset-home-view',
+      };
+    }
     if (event.action === 'Canceled' && event.context.formMode === 'edit') {
-      this.goToAssetHome();
+      // this.goToAssetHome();
     }
     return observableOf(event);
   }
 
-  goToAssetHome(): void {
-    const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
-  }
+  // private goToAssetHome(): void {
+  //   const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
+  //   this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+  // }
 
   protected getFormModels(): any[] {
     return [

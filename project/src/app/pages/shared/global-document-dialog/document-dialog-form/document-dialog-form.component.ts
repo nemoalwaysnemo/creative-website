@@ -35,7 +35,9 @@ export class DocumentDialogFormComponent extends DocumentDialogContainerComponen
     if (this.dynamicComponent) {
       this.dynamicComponent.instance.callback.subscribe((e: DocumentFormEvent) => {
         this.globalDocumentDialogService.triggerEvent({ name: `Form${e.action}`, type: 'callback', messageType: e.messageType, messageContent: e.messageContent, options: { doc: e.doc } });
-        if (e.action === 'Canceled') {
+        if (e.action === 'SelectView' && e.metadata) {
+          this.selectView(e.metadata.homeTemplate, e.metadata.component, e.metadata);
+        } if (e.action === 'Canceled') {
           this.close();
         } else if (['Created', 'Updated'].includes(e.action)) {
           this.documentPageService.updateCurrentDocument(e.doc);
