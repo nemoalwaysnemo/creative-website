@@ -66,7 +66,7 @@ export class DocumentCreativeProjectImportAssetFormComponent extends GlobalDocum
       showMessageBeforeSave: false,
       importSettings: {
         placeholder: 'Drag and Drop files here or click Add',
-        batchUploadLayout: 'importAsset',
+        batchUploadLayout: 'common-table importAsset',
         getDocType: (item: NuxeoUploadResponse): string => {
           if (['video'].some(x => item.mimeType.includes(x))) {
             return 'App-Library-Video';

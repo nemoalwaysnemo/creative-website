@@ -107,7 +107,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
       enableCreateMain: true,
       importSettings: {
         placeholder: 'Upload Assets',
-        batchUploadLayout: 'ringCollection',
+        batchUploadLayout: 'common-table ringCollection',
         getDocType: (item: NuxeoUploadResponse): string => {
           if (['video'].some(x => item.mimeType.includes(x))) {
             return 'App-Library-Video';
