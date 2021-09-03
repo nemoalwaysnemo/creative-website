@@ -16,10 +16,6 @@ td {
   text-align: left;
 }
 
-.th_name {
-  width: 280px;
-}
-
 .th_action {
   width: 86px;
 }
@@ -45,29 +41,37 @@ td {
   padding-left: 12px;
 }
 
-::ng-deep .importAsset {
-  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+.labels-names {
+  display: block;
+  float: left;
+}
+
+::ng-deep .common-table {
+  .ng-placeholder {
     font-size: 14px;
     letter-spacing: -1px;
     padding: 0;
   }
+
   .form-control {
     height: 36px !important;
     padding-left: 8px;
     border: 1px solid #ccc;
   }
+
   .direction-horizontal {
+    margin: 4px 0;
     padding-right: 4px;
   }
+}
 
-  .form-control {
-    @media only screen and (max-width: 1400px) {
-      margin-bottom: 4px;
-    }
+::ng-deep .importAsset {
+  .th_name {
+    width: 230px;
   }
 
   .th_size {
-    width: 96px;
+    width: 92px;
   }
 
   .header-labels {
@@ -76,125 +80,85 @@ td {
     }
 
     @media screen and (min-width: 992px) and (max-width: 1400px) {
-      width: 522px;
+      width: 342px;
     }
 
     @media screen and (min-width: 1400px) {
-      width: 850px;
+      width: 654px;
     }
   }
 
   .labels-names {
-    display: block;
-    float: left;
-
-    @media only screen and (max-width: 992px) {
+    @media only screen and (max-width: 991px) {
       width: 140px;
     }
 
     @media screen and (min-width: 992px) {
       width: 158px;
-    }
-  }
-}
-
-::ng-deep .uploadAsset {
-  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
-    font-size: 14px;
-    letter-spacing: -1px;
-    padding: 0;
-  }
-  .form-control {
-    height: 36px !important;
-    padding-left: 8px;
-    border: 1px solid #ccc;
-  }
-  .direction-horizontal {
-    padding-right: 4px;
-  }
-  .form-control {
-    @media only screen and (max-width: 1400px) {
-      margin-bottom: 4px;
-    }
-  }
-  .th_name {
-    width: 450px;
-  }
-  .th_size {
-    width: 120px;
-  }
-  .header-labels {
-    @media only screen and (max-width: 992px) {
-      width: 180px;
-    }
-    @media screen and (min-width: 992px) and (max-width: 1400px) {
-      width: 522px;
-    }
-    @media screen and (min-width: 1400px) {
-      width: 455px;
-    }
-  }
-  .labels-names {
-    display: block;
-    float: left;
-    @media only screen and (max-width: 992px) {
-      width: 140px;
-    }
-    @media screen and (min-width: 992px) {
-      width: 210px;
     }
   }
 }
 
 ::ng-deep .ringCollection {
-  .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
-    font-size: 14px;
-    letter-spacing: -1px;
-    padding: 0;
-  }
-  .form-control {
-    height: 36px !important;
-    padding-left: 8px;
-    border: 1px solid #ccc;
-  }
-  .direction-horizontal {
-    padding-right: 4px;
-  }
-  .form-control {
-    @media only screen and (max-width: 1400px) {
-      margin-bottom: 4px;
-    }
-  }
   .th_name {
-    width: 600px;
+    width: 270px;
   }
-  .th_size {
-    width: 120px;
+
+  .direction-horizontal {
+    padding-right: 8px;
+    width: 192px;
   }
+
   .header-labels {
     @media only screen and (max-width: 992px) {
       width: 180px;
     }
 
     @media screen and (min-width: 992px) and (max-width: 1400px) {
-      width: 522px;
+      width: 406px;
     }
 
     @media screen and (min-width: 1400px) {
-      width: 850px;
+      width: 600px;
+
     }
   }
 
   .labels-names {
-    display: block;
-    float: left;
-
+    
     @media only screen and (max-width: 992px) {
       width: 140px;
     }
 
     @media screen and (min-width: 992px) {
-      width: 158px;
+      width: 192px;
+    }
+  }
+}
+
+::ng-deep .uploadAsset {
+
+  .direction-horizontal {
+    padding-right: 4px;
+  }
+
+  .header-labels {
+    @media only screen and (max-width: 992px) {
+      width: 237px;
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 452px;
+    }
+  }
+
+  .labels-names {
+    @media only screen and (max-width: 992px) {
+      width: 113px;
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 210px;
     }
   }
 }

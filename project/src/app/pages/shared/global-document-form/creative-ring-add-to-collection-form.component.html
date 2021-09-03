@@ -2,25 +2,23 @@
 <ng-template #formTemplate let-form="form" let-group="group">
   <div class="ring-add-to-colletion-form-template">
     <document-form-element [formModel]="'form'"></document-form-element>
-    <div class="ring-colletion-header">
-      <div class="ring-colletion-form-model">
-        <div class="ring-collection-form-title">
-          <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        </div>
+     <div class="row mx-0">
+      <div class="col-lg-2 col-md-3 px-0">
+        <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
       </div>
-      <div class="ring-collection-user">
-        <div class="ring-collection-default-asset-type">
-          <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:assettype')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        </div>
-        <div class="ring-collection-default-brand">
-          <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:brand')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        </div>
-        <div class="ring-collection-user-country">
-          <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:country')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        </div>
-        <div class="ring-collection-user-agency">
-          <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:agency')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-        </div>
+      <div class="col-lg-2 col-md-9">
+      </div>
+      <div class="col-lg-2 col-md-3 px-0 pr-1">
+        <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:agency')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+      </div>
+      <div class="col-lg-2 col-md-3 px-0 pr-1">
+        <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:country')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+      </div>
+      <div class="col-lg-2 col-md-3 px-0 pr-1">
+        <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:brand')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+      </div>
+      <div class="col-lg-2 col-md-3 px-0">
+        <document-form-element [group]="group" [formModel]="form.getFormModels('The_Loupe_Main:assettype')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
       </div>
     </div>
     <document-form-element [group]="group" [formModel]="form.getFormModels('selected-documents')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
