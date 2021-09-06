@@ -35,6 +35,46 @@
     margin-top: 10px;
   }
 }
+.add-box {
+  height: 35px;
+  text-align: center;
+  width: 100%;
+  background-color: #efefef;
+  p {
+    height: 35px;
+    width: 40%;
+    float: left;
+    margin-left: 30%;
+    font-weight: 700;
+    line-height: 35px;
+    font-size: 15px;
+  }
+  button {
+    float: right;
+    color: #ffffff;
+    font-weight: 700;
+    height: 35px;
+    width: 100px;
+    background-color: #f9da78;
+    border-radius: 10px;
+    border: none;
+  }
+}
+.upload-box {
+  padding: 10px 0;
+}
+.line {
+  border-bottom: solid 2px #a1a1a1;
+  margin: 8px 0;
+}
+.default-settings {
+  font-family: 'Averta for TBWA W01 Regular', helvetica, arial;
+  width: 100%;
+  height: 35px;
+  background-color: #fecc00;
+  font-weight: 600;
+  padding: 7px 0 0 10px;
+}
 ::ng-deep .ring-colletion-form-model label {
   font-family: 'Averta for TBWA W01 Semibold', helvetica, arial;
 }
@@ -79,7 +119,7 @@
   padding: 0 !important;
 }
 ::ng-deep .ng-placeholder {
-    font-size: 14px;
-    letter-spacing: -1px;
-    padding: 0;
-  }
+  font-size: 14px;
+  letter-spacing: -1px;
+  padding: 0;
+}

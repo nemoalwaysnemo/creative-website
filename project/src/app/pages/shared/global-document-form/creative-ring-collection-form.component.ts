@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DocumentModel, GlobalSearchParams, NuxeoAutomations, NuxeoPagination, NuxeoUploadResponse, UserModel } from '@core/api';
-import { DynamicSuggestionModel, DynamicInputModel } from '@core/custom';
+import { DynamicSuggestionModel, DynamicInputModel, NgFileService } from '@core/custom';
 import { GlobalDocumentFormComponent } from './global-document-form.component';
 import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../document-form/document-form.interface';
 import { DocumentPageService } from '../services/document-page.service';
@@ -25,6 +25,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
   enableUpload: boolean = false;
 
   constructor(
+    private ngFileService: NgFileService,
     private selectableItemService: SelectableItemService,
     protected documentPageService: DocumentPageService) {
     super(documentPageService);
@@ -96,15 +97,30 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     if (!this.enableUpload && event.action === 'SharedValueChanged' && this.sharedModelValid(event.formValue)) {
       this.enableUpload = true;
     }
+    if (event.action === 'Created') {
+      event.redirectUrl = '/p/creative/ring/collection/:uid/asset';
+    }
     return observableOf(event);
   }
 
   protected getDocumentFormSettings(options: any = {}): DocumentFormSettings {
     return new DocumentFormSettings({
       acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
-      enableBulkImport: options.formType === 'new',
+      enableBulkImport: true,
       docType: this.documentType,
       enableCreateMain: true,
+      buttonGroup: [
+        {
+          label: 'Upload',
+          name: 'save',
+          type: 'save',
+        },
+        {
+          label: 'Cancel',
+          name: 'cancle',
+          type: 'cancle',
+        },
+      ],
       importSettings: {
         placeholder: 'Upload Assets',
         batchUploadLayout: 'common-table ringCollection',
@@ -220,7 +236,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
             required: '{{label}} is required',
             minLength: 'At least 4 characters',
           },
-          visibleFn: (): boolean => options.formType === 'new',
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:brand',
@@ -234,7 +249,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           },
           validators: { required: null },
           errorMessages: { required: '{{label}} is required' },
-          visibleFn: (): boolean => options.formType === 'new',
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:assettype',
@@ -249,7 +263,6 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           },
           validators: { required: null },
           errorMessages: { required: '{{label}} is required' },
-          visibleFn: (): boolean => options.formType === 'new',
         }),
       ],
     });
@@ -268,4 +281,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     return requiredAllFilled;
   }
 
+  openFileSelectWindow(event: any): void {
+    this.ngFileService.triggerEvent({ name: 'openSelectWindow', type: 'ng-file', data: { event } });
+  }
 }

@@ -2,26 +2,35 @@
 <ng-template #formTemplate let-form="form" let-group="group">
   <div class="colletion-form-template">
     <document-form-element [formModel]="'form'"></document-form-element>
-    <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+    <div class="add-box" *ngIf="enableUpload">
+      <p>Drag & Drop / Bulk Edit</p>
+      <button *ngIf="enableUpload" (click)="openFileSelectWindow($event)">Add</button>
+    </div>
+    <div *ngIf="enableUpload" class="upload-box">
+      <document-form-element [group]="group" [formModel]="form.getFormModels('file:content')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+    </div>
     <div class="row mx-0">
       <div class="col-lg-2 col-md-3 px-0">
         <document-form-element [group]="group" [formModel]="form.getFormModels('dc:title')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
       </div>
-      <div class="col-lg-2 col-md-9">
-      </div>
-      <div class="col-lg-2 col-md-3 px-0 pr-1">
-        <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:agency')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-      </div>
-      <div class="col-lg-2 col-md-3 px-0 pr-1">
-         <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:country')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-      </div>
-      <div class="col-lg-2 col-md-3 px-0 pr-1">
-        <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:brand')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
-      </div>
-      <div class="col-lg-2 col-md-3 px-0">
-        <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:assettype')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+      <div class="col-lg-2 col-md-9"></div>
+      <div class="col-lg-8">
+        <div class="default-settings">DEFAULT SETTINGS</div>
+        <div class="col-lg-3 col-md-3 px-0 pr-1 left">
+          <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:agency')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+        </div>
+        <div class="col-lg-3 col-md-3 px-0 pr-1 left">
+           <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:country')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+        </div>
+        <div class="col-lg-3 col-md-3 px-0 pr-1 left">
+          <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:brand')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+        </div>
+        <div class="col-lg-3 col-md-3 px-0 left">
+          <document-form-element [group]="form.sharedGroup" [formModel]="form.getSharedFormModels('The_Loupe_Main:assettype')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
+        </div>
       </div>
     </div>
+    <div *ngIf="enableUpload" class="line"></div>
     <document-form-element *ngIf="enableUpload" [group]="group" [formModel]="form.getFormModels('batchUpload')" (blur)="form.onBlur($event)" (focus)="form.onFocus($event)" (change)="form.onChange($event)" (customEvent)="form.onCustomEvent($event)"></document-form-element>
     <!-- <document-form-element [group]="group"
             [formModel]="form.getFormModels(['The_Loupe_Main:collection_type', 'The_Loupe_Main:assettype'])"
