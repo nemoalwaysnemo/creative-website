@@ -99,6 +99,9 @@ export class CreativeRingAddToCollectionFormComponent extends GlobalDocumentForm
     if (!this.enableUpload && event.action === 'FormValueChanged' && this.formModelValid(event.formValue)) {
       this.enableUpload = true;
     }
+    if (event.action === 'Created') {
+      event.redirectUrl = '/p/creative/ring/collection/:uid/asset';
+    }
     return observableOf(event);
   }
 
@@ -227,7 +230,6 @@ export class CreativeRingAddToCollectionFormComponent extends GlobalDocumentForm
               return items;
             },
           },
-          visibleFn: (): boolean => options.formType === 'add',
         }),
       ],
     });

@@ -59,7 +59,7 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
 
     return new DocumentFormSettings({
       acceptTypes: 'image/*,.pdf,.mp3,.mp4,.mov,.m4a,.3gp,.3g2,.mj2',
-      enableBulkImport: options.formType === 'new',
+      enableBulkImport: true,
       docType: this.documentType,
       enableCreateMain: true,
       importSettings: {
@@ -138,7 +138,6 @@ export class CreativeRingCollectionUploadFormComponent extends GlobalDocumentFor
             required: '{{label}} is required',
             minLength: 'At least 4 characters',
           },
-          visibleFn: (): boolean => options.formType === 'new',
         }),
         new DynamicSuggestionModel<string>({
           id: 'The_Loupe_Main:assettype',
