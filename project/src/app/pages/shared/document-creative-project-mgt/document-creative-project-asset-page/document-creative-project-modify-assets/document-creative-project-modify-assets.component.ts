@@ -2,7 +2,7 @@ import { Component, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { DynamicSuggestionModel, DynamicDatepickerDirectiveModel } from '@core/custom';
 import { DocumentCreativeProjectMgtBaseComponent } from '../../document-creative-project-mgt-base.component';
-import { DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
+import { DocumentFormContext, DocumentFormEvent, DocumentFormSettings } from '../../../document-form/document-form.interface';
 import { GlobalDocumentDialogService } from '../../../global-document-dialog/global-document-dialog.service';
 import { DocumentListViewService } from '../../../document-list-view/document-list-view.service';
 import { CreativeProjectMgtSettings } from '../../document-creative-project-mgt.interface';
@@ -28,21 +28,18 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
     enableBulkImport: false,
     formModel: [
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Main:assettype',
+        id: 'The_Loupe_Rights:modify_asset_type',
         label: 'New Asset Type',
         document: true,
         settings: {
           multiple: false,
           placeholder: 'What is this asset?',
-          providerType: SuggestionSettings.OPERATION,
-          providerName: 'javascript.provideAssetType_Image',
+          providerType: SuggestionSettings.DIRECTORY,
+          providerName: 'App-Library-MediaTypes-Mixed',
         },
-        validators: { required: null },
-        errorMessages: { required: '' },
-        onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicDatepickerDirectiveModel<string>({
-        id: 'The_Loupe_Rights:first-airing',
+        id: 'The_Loupe_Rights:modify_first-airing',
         label: 'New First Airing',
         readonly: false,
         validators: {
@@ -53,20 +50,18 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
         },
       }),
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Rights:contract_mediatypes',
-        label: 'New Media Usage Types',
+        id: 'The_Loupe_Rights:modify_mediatypes',
+        label: 'New Media Usage Type',
         document: true,
         settings: {
           placeholder: 'Where is this used?',
           providerType: SuggestionSettings.OPERATION,
           providerName: 'javascript.provideURmediatypes',
         },
-        validators: { required: null },
-        errorMessages: { required: '' },
         onResponse: (res: any) => res && res.map((entry: any) => new OptionModel({ label: entry.displayLabel, value: entry.id })),
       }),
       new DynamicSuggestionModel<string>({
-        id: 'The_Loupe_Rights:asset_countries',
+        id: 'The_Loupe_Rights:modify_country',
         label: 'New Asset Country',
         settings: {
           placeholder: 'Leave blank to copy from agency\\brand',
@@ -95,6 +90,18 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
     });
   }
 
+  beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
+    doc.setProperty('The_Loupe_Main:assettype', ctx.formValue['The_Loupe_Rights:modify_asset_type'] || null);
+    doc.setProperty('The_Loupe_Rights:first-airing', ctx.formValue['The_Loupe_Rights:modify_first-airing'] || null);
+    doc.setProperty('The_Loupe_Rights:contract_mediatypes', ctx.formValue['The_Loupe_Rights:modify_mediatypes'] || []);
+    doc.setProperty('The_Loupe_Rights:asset_countries', ctx.formValue['The_Loupe_Rights:modify_country'] || []);
+    doc.setProperty('The_Loupe_Rights:modify_asset_type', null);
+    doc.setProperty('The_Loupe_Rights:modify_first-airing', null);
+    doc.setProperty('The_Loupe_Rights:modify_mediatypes', []);
+    doc.setProperty('The_Loupe_Rights:modify_country', []);
+    return observableOf(doc);
+  };
+
   protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeProjectMgtSettings): Observable<DocumentModel> {
     this.setBatchDocuments(formSettings.batchDocuments, formSettings.brand);
     return observableOf(doc);
@@ -105,8 +112,7 @@ export class DocumentCreativeProjectModifyAssetsComponent extends DocumentCreati
     this.batchDocuments = batchDocuments;
     this.batchDocuments.forEach((item) => {
       item.setParent(this.brand);
-    },
-    );
+    });
   }
 
   onCallback(event: DocumentFormEvent): void {
