@@ -5,5 +5,5 @@
   <document-creative-campaign-navigation [documentModel]='document' [settings]="navSettings"></document-creative-campaign-navigation>
 </div>
 <div class="document-creative-campaign-home-list">
-  <list-search-form-in-dialog [searchParams]="defaultParams" [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset" [afterSearch]="afterSearch"></list-search-form-in-dialog>
+  <list-search-form-in-dialog [searchParams]="baseParams$ | async"  [settings]="searchFormSettingsAsset" [listViewSettings]="listViewSettingsAsset" [listViewBuilder]="listViewBuilderAsset" [afterSearch]="afterSearch"></list-search-form-in-dialog>
 </div>

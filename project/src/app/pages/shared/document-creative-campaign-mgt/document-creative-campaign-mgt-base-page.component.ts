@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ComponentRef, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
 import { isValueEmpty } from '@core/services/helpers';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { DocumentPageService, GlobalEvent } from '../services/document-page.service';
 import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
@@ -15,7 +15,7 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
 
   @Input()
   set documentModel(doc: DocumentModel) {
-    this.setDocument(doc);
+    this.setInputDocument(doc);
   }
 
   @Input()
@@ -40,9 +40,7 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
-    protected globalDocumentDialogService: GlobalDocumentDialogService,
-  ) {
-    this.subscribeEvents();
+    protected globalDocumentDialogService: GlobalDocumentDialogService) {
   }
 
   ngOnInit(): void {
@@ -57,6 +55,12 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
 
   }
 
+  protected setInputDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document = doc;
+    }
+  }
+
   protected onDestroy(): void {
     this.subscription.unsubscribe();
     this.clearDynamicComponent();
@@ -65,6 +69,7 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
   protected changeView(component: Type<any>, settings: any = {}): void {
     if (component) {
       this.clearDynamicComponent();
+      timer(0).subscribe(() => { this.performMainViewChangedSettings(settings); });
       this.buildComponent(this.dynamicTarget, component, settings);
     }
   }
@@ -87,6 +92,10 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
     this.dynamicComponentRef.instance.settings = settings;
   }
 
+  protected performMainViewChangedSettings(settings: CreativeCampaignMgtSettings): void {
+
+  }
+
   protected subscribeEvents(): void {
     const subscription = this.documentPageService.onEventType(this.eventType).subscribe((event: GlobalEvent) => {
       if (event.name === 'SelectedComponentChanged') {
@@ -105,14 +114,8 @@ export class DocumentCreativeCampaignMgtBasePageComponent implements OnInit, OnD
     this.subscription.add(subscription);
   }
 
-  protected setDocument(doc: DocumentModel): void {
-    if (doc) {
-      this.document = doc;
-    }
-  }
-
   protected triggerChangeView(view: string, type: string, settings: CreativeCampaignMgtSettings = {}): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type, settings }, type: this.eventType }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type, settings, component: settings.component }, type: this.eventType }));
   }
 
   protected onPageChanged(event: GlobalEvent): void {

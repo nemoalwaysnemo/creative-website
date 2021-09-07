@@ -1,20 +1,23 @@
 import { Component, Input, ComponentFactoryResolver } from '@angular/core';
 import { DocumentModel, UserModel } from '@core/api';
-import { DocumentPageService } from '../services/document-page.service';
-import { of as observableOf, Observable, Subject, combineLatest } from 'rxjs';
+import { NbMenuItem } from '@core/nebular/theme';
+import { of as observableOf, Observable, Subject, combineLatest, BehaviorSubject } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
-import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
 import { DocumentCreativeCampaignMgtBasePageComponent } from './document-creative-campaign-mgt-base-page.component';
 import { GlobalDocumentDialogService } from '../global-document-dialog/global-document-dialog.service';
+import { CreativeCampaignMgtSettings } from './document-creative-campaign-mgt.interface';
+import { DocumentPageService } from '../services/document-page.service';
 
 @Component({
   template: '',
 })
 export class DocumentCreativeCampaignMgtBaseComponent extends DocumentCreativeCampaignMgtBasePageComponent {
 
+  actions$: Subject<NbMenuItem[]> = new BehaviorSubject<NbMenuItem[]>([]);
+
   @Input()
   set documentModel(doc: DocumentModel) {
-    this.setDocument(doc);
+    this.setInputDocument(doc);
   }
 
   @Input()
@@ -25,6 +28,7 @@ export class DocumentCreativeCampaignMgtBaseComponent extends DocumentCreativeCa
   protected templateSettings$: Subject<CreativeCampaignMgtSettings> = new Subject<CreativeCampaignMgtSettings>();
 
   protected document$: Subject<DocumentModel> = new Subject<DocumentModel>();
+
   constructor(
     protected documentPageService: DocumentPageService,
     protected componentFactoryResolver: ComponentFactoryResolver,
@@ -32,7 +36,14 @@ export class DocumentCreativeCampaignMgtBaseComponent extends DocumentCreativeCa
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
     this.onDocumentChanged();
   }
-  protected beforeSetDocument(doc: DocumentModel, user: UserModel, formSettings: CreativeCampaignMgtSettings): Observable<DocumentModel> {
+
+  protected setInputDocument(doc: DocumentModel): void {
+    if (doc) {
+      this.document$.next(doc);
+    }
+  }
+
+  protected beforeSetDocument(doc: DocumentModel, user: UserModel, settings: CreativeCampaignMgtSettings): Observable<DocumentModel> {
     return observableOf(doc);
   }
 
@@ -48,14 +59,24 @@ export class DocumentCreativeCampaignMgtBaseComponent extends DocumentCreativeCa
         observableOf(settings),
       ])),
     ).subscribe(([doc, user, settings]: [DocumentModel, UserModel, CreativeCampaignMgtSettings]) => {
-      this.templateSettings = settings;
-      this.currentUser = user;
-      this.document = doc;
+      this.prepareDocument(doc, user, settings);
+      this.setDocument(doc, user, settings);
+      this.performDocument(doc, user, settings);
     });
     this.subscription.add(subscription);
   }
 
-  protected setDocument(doc: DocumentModel): void {
+  protected setDocument(doc: DocumentModel, user: UserModel, settings: CreativeCampaignMgtSettings): void {
+    this.templateSettings = settings;
+    this.currentUser = user;
+    this.document = doc;
+  }
+
+  protected performDocument(doc: DocumentModel, user: UserModel, settings: CreativeCampaignMgtSettings): void {
+
+  }
+
+  protected prepareDocument(doc: DocumentModel, user: UserModel, settings: CreativeCampaignMgtSettings): void {
     if (doc) {
       const brand = doc.filterParents(['App-Library-Folder']).pop();
       if (brand) {
@@ -65,8 +86,12 @@ export class DocumentCreativeCampaignMgtBaseComponent extends DocumentCreativeCa
       if (campaignMgt) {
         doc.setParent(campaignMgt, 'parent');
       }
-      this.document$.next(doc);
     }
+  }
+
+  protected getPageComponent(tabs: any, view: string): any {
+    const page = tabs.find((t: NbMenuItem) => t.id === view);
+    return page ? page.component : null;
   }
 
 }

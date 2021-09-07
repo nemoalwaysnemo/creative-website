@@ -122,7 +122,7 @@ export class DocumentCreativeProjectMgtBasePageComponent implements OnInit, OnDe
   }
 
   protected triggerChangeView(view: string, type: string, settings: CreativeProjectMgtSettings = {}): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type, settings }, type: this.eventType }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type, settings, component: settings.component }, type: this.eventType }));
   }
 
   protected onPageChanged(event: GlobalEvent): void {

@@ -19,5 +19,7 @@ export class CreativeCampaignMgtTemplateComponent extends DocumentDialogCustomTe
     super(globalDocumentDialogService, documentPageService);
     this.subscribeDialogEvents();
   }
-
+  protected getExcludeHomeViews(): string[] {
+    return ['asset-home-view'];
+  }
 }

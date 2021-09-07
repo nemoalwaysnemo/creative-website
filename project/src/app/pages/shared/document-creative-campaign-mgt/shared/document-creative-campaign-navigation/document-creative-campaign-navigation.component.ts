@@ -6,7 +6,6 @@ import { OptionModel } from '../../../option-select/option-select.interface';
 import { DocumentPageService, GlobalEvent } from '../../../services/document-page.service';
 import { CreativeCampaignMgtSettings } from '../../document-creative-campaign-mgt.interface';
 import { SearchFilterModel } from '../../../global-search-filter/global-search-filter.interface';
-import { CampaignMgtNavigationSettings } from './document-creative-campaign-navigation.interface';
 import { GlobalSearchFormSettings } from '../../../global-search-form/global-search-form.interface';
 import { TAB_CONFIG } from '../../document-creative-campaign-mgt-tab-config';
 
@@ -47,7 +46,7 @@ export class DocumentCreativeCampaignNavigationComponent implements OnInit, OnDe
     this.navSettings$.next(settings);
   }
 
-  protected navSettings$: Subject<CampaignMgtNavigationSettings> = new Subject<CampaignMgtNavigationSettings>();
+  protected navSettings$: Subject<CreativeCampaignMgtSettings> = new Subject<CreativeCampaignMgtSettings>();
 
   protected document$: Subject<DocumentModel> = new Subject<DocumentModel>();
 
@@ -90,7 +89,7 @@ export class DocumentCreativeCampaignNavigationComponent implements OnInit, OnDe
       this.document$,
       this.documentPageService.getCurrentUser(),
       this.navSettings$,
-    ]).subscribe(([doc, user, settings]: [DocumentModel, UserModel, CampaignMgtNavigationSettings]) => {
+    ]).subscribe(([doc, user, settings]: [DocumentModel, UserModel, CreativeCampaignMgtSettings]) => {
       this.selectedItem = settings.currentPage;
       this.filters = settings.searchFormFilters;
       this.defaultParams = settings.searchFormParams;
@@ -111,7 +110,7 @@ export class DocumentCreativeCampaignNavigationComponent implements OnInit, OnDe
   }
 
   private triggerChangePage(view: string, settings: CreativeCampaignMgtSettings = {}): void {
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedViewChanged', data: { view, type: 'page', settings, component: this.getPageComponent(view) }, type: 'creative-campaign-project-mgt' }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view, type: 'page', settings, component: this.getPageComponent(view) }, type: 'creative-campaign-project-mgt' }));
   }
 
 }
