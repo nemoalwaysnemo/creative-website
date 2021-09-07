@@ -274,7 +274,7 @@ export class DocumentCreativeProjectAssetHomeComponent extends DocumentCreativeP
       formMode: mode,
       showMessageBeforeSave: false,
       batchDocuments: this.selectedItems,
-      brand: this.document.getParent(),
+      brand: this.document.getParent('brand'),
     });
   }
 
