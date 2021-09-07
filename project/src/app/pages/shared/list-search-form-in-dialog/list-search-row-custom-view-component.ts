@@ -12,6 +12,10 @@ import { ListSearchRowCustomViewSettings } from '../list-search-form/list-search
         <img [attr.doc-uid]="value.uid" style="max-height:68px;" [src]="value.thumbnailUrl" (click)="onClick($event)" >
       </ng-container>
 
+      <ng-container *ngSwitchCase="options.viewType === 'text'">
+        <a href="javascript:;" (click)="onClick($event)" class="property-intro inline-top" title="getTitle(value)">{{getTitle(value)}}</a>
+      </ng-container>
+
       <ng-container *ngSwitchCase="options.viewType === 'icon'">
         <img style="max-height:68px;" [src]="value.url">
       </ng-container>
@@ -62,6 +66,10 @@ export class ListSearchRowCustomViewComponent {
   }
 
   constructor(protected documentPageService: DocumentPageService) {
+  }
+
+  getTitle(doc: DocumentModel): string {
+    return this.options.dialogTitle.replace(':docTitle', doc.title);
   }
 
   getHtmlTemplate(doc: DocumentModel): string {

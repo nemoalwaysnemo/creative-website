@@ -8,11 +8,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
   selector: 'document-creative-campaign-asset-home-menu',
   styleUrls: ['./document-creative-campaign-asset-home-menu.component.scss'],
   template: `
-    <div class="actions-title">ACTIONS</div>
-    <nb-menu [items]="actions$ | async" (itemClick)="itemClick.emit($event)"></nb-menu>
     <div class="document-creative-campaign-info">
       <document-creative-campaign-info [document]='document'></document-creative-campaign-info>
     </div>
+    <div class="actions-title">ACTIONS</div>
+    <nb-menu [items]="actions$ | async" (itemClick)="itemClick.emit($event)"></nb-menu>
   `,
 })
 export class DocumentCreativeCampaignAssetHomeMenuComponent {
@@ -28,5 +28,5 @@ export class DocumentCreativeCampaignAssetHomeMenuComponent {
     }
   }
   @Output() itemClick: EventEmitter<any> = new EventEmitter<any>();
-  constructor() { }
+  constructor() {}
 }

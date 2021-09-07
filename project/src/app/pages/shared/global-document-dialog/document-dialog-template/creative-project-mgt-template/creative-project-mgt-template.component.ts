@@ -13,8 +13,8 @@ export class CreativeProjectMgtTemplateComponent extends DocumentDialogCustomTem
   static readonly NAME: string = 'creative-project-mgt-template';
 
   constructor(
-    protected documentPageService: DocumentPageService,
     protected globalDocumentDialogService: GlobalDocumentDialogService,
+    protected documentPageService: DocumentPageService,
   ) {
     super(globalDocumentDialogService, documentPageService);
     this.subscribeDialogEvents();

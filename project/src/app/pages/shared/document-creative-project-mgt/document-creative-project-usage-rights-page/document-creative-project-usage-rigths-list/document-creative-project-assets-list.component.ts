@@ -113,8 +113,6 @@ export class DocumentCreativeProjectAssetsListComponent {
   @Input() assets: DocumentModel[];
 
   listViewBuilder: (docs: DocumentModel[]) => any = (docs: DocumentModel[]) => {
-    // console.log(docs);
-    // const list = [docs[0], docs[1]];
     const items = [];
     for (const doc of docs) {
       items.push(new DocumentListViewItem({
