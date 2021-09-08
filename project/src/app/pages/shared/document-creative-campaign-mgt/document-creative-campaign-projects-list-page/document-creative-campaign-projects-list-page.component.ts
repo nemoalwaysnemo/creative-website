@@ -5,6 +5,7 @@ import { DocumentCreativeCampaignMgtBasePageComponent } from '../document-creati
 import { DocumentCreativeCampaignProjectsListHomeComponent } from './document-creative-campaign-projects-list-home/document-creative-campaign-projects-list-home.component';
 import { TAB_CONFIG } from './document-creative-campaign-projects-list-tab-config';
 import { GlobalDocumentDialogService } from '../../global-document-dialog/global-document-dialog.service';
+import { CreativeCampaignMgtSettings } from '../document-creative-campaign-mgt.interface';
 
 @Component({
   selector: 'app-document-creative-campaign-projects-list-page',
@@ -21,6 +22,7 @@ export class DocumentCreativeCampaignProjectsListPageComponent extends DocumentC
     protected globalDocumentDialogService: GlobalDocumentDialogService,
   ) {
     super(documentPageService, componentFactoryResolver, globalDocumentDialogService);
+    this.subscribeEvents();
   }
 
   protected onInit(): void {
@@ -32,6 +34,23 @@ export class DocumentCreativeCampaignProjectsListPageComponent extends DocumentC
     const data = this.getAssetViewConfig(event.data.view);
     if (data) {
       this.changeView(data.component, event.data.settings);
+    }
+  }
+
+  protected performMainViewChangedSettings(settings: CreativeCampaignMgtSettings): void {
+    if (settings.mainViewChanged && settings.documentType === 'asset') {
+      delete settings.documentType;
+      const project: any = this.document.getParent('project') || {};
+      this.globalDocumentDialogService.mainViewChanged(settings.mainViewChanged, new CreativeCampaignMgtSettings({
+        mainViewChanged: true,
+        title: project.title,
+        project,
+        document: this.document,
+        mainViewDocument: project,
+        homeTemplate: 'creative-campaign-mgt-template',
+        homePage: 'campaign-projects-page',
+        homeView: 'project-list-home',
+      }));
     }
   }
 

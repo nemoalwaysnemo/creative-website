@@ -248,19 +248,20 @@ export class DocumentCreativeCampaignProjectsListHomeComponent extends DocumentC
     );
   }
 
-  changeMenuView(item: NbMenuItem, type: string = 'view', formMode: string = 'create'): void {
-    this.triggerChangeView(item.id, type, new CreativeCampaignMgtSettings({
+  changeMenuView(event): void {
+    const settings = event.triggerChangeSettings;
+    this.triggerChangeView(settings.name, settings.type, new CreativeCampaignMgtSettings({
       mainViewChanged: true,
-      document: formMode === 'edit' ? this.document : this.document.getParent(),
+      document: settings.formMode === 'edit' ? this.document : this.document.getParent('brand'),
       project: this.templateSettings.project,
       homeTemplate: 'creative-campaign-mgt-template',
-      homePage: 'project-list-home',
-      homeView: 'campaign-projects-page',
-      formMode,
+      homePage: 'campaign-projects-page',
+      homeView: 'project-list-home',
+      formMode: settings.formMode,
       showMessageBeforeSave: false,
       mainViewDocument: this.document,
       campaign: this.document,
-      component: this.getPageComponent(this.tabs, item.id),
+      // component: this.getPageComponent(this.tabs, settings.name),
     }));
   }
 }

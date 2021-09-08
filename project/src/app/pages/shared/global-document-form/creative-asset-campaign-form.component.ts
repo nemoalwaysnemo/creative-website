@@ -37,14 +37,14 @@ export class CreativeCampaignFormComponent extends GlobalDocumentFormComponent {
       };
     }
     if ((event.action === 'Updated' || event.action === 'Canceled') && event.context.formMode === 'edit') {
-      this.goToCampaignAssetHome();
+      this.goToCampaignHome(event.context.formSettings.homeView);
     }
     return observableOf(event);
   }
 
-  private goToCampaignAssetHome(): void {
+  private goToCampaignHome(homePageView = 'campaign-asset-home-view'): void {
     const settings = new CreativeProjectMgtSettings({ document: this.document, project: this.formSettings.project });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'campaign-asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: homePageView, type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormModels(): any[] {
