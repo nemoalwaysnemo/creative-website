@@ -32,13 +32,22 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
   }
 
   beforeSave: (doc: DocumentModel, ctx: DocumentFormContext) => Observable<DocumentModel> = (doc: DocumentModel, ctx: DocumentFormContext) => {
-    if (doc.type === 'App-Library-CreativeRing-Collection') {
+    if (NUXEO_DOC_TYPE.CREATIVE_RING_COLLECTION_TYPE.includes(doc.type)) {
       doc.setProperty('The_Loupe_Main:agency', ctx.sharedFormValue['The_Loupe_Main:agency'] || []);
       doc.setProperty('The_Loupe_Main:country', ctx.sharedFormValue['The_Loupe_Main:country'] || null);
       doc.setProperty('The_Loupe_Main:brand', ctx.sharedFormValue['The_Loupe_Main:brand'] || []);
       doc.setProperty('The_Loupe_Main:assettype', ctx.sharedFormValue['The_Loupe_Main:assettype'] || null);
+      return observableOf(doc);
+    } else if (NUXEO_DOC_TYPE.CREATIVE_IMAGE_VIDEO_AUDIO_TYPES.includes(doc.type)) {
+      const e = (doc.get('The_Loupe_Main:brand') || []).filter((x: any) => typeof x !== 'string').map((x: any) => x.value);
+      if (e.length > 0) {
+        const entries = '[' + e.map((x: any) => '{"id": "' + x + '", "label": "' + x + '"}').join(', ') + ']';
+        return this.documentPageService.operation(NuxeoAutomations.AddDirectoryEntries, { directoryName: 'App-Library-CreativeRing-Brands', entries }).pipe(
+          map((res: NuxeoPagination) => doc.setProperty('The_Loupe_Main:brand', doc.get('The_Loupe_Main:brand').filter((x: any) => typeof x === 'string').concat(res.entries))),
+        );
+      }
+      return observableOf(doc);
     }
-    return observableOf(doc);
   };
 
   afterFormSave: (ctx: DocumentFormContext) => Observable<DocumentFormContext> = (ctx: DocumentFormContext) => {
@@ -242,10 +251,11 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
           label: 'Brand',
           required: true,
           settings: {
+            layout: 'direction-horizontal',
             placeholder: 'What is this brand?',
             providerType: SuggestionSettings.DIRECTORY,
             providerName: 'App-Library-CreativeRing-Brands',
-            layout: 'direction-horizontal',
+            addTag: (name: string) => ({ value: name, new: true }),
           },
           validators: { required: null },
           errorMessages: { required: '{{label}} is required' },
@@ -268,7 +278,7 @@ export class CreativeRingCollectionFormComponent extends GlobalDocumentFormCompo
     });
   }
 
-  private sharedModelValid(formValue): boolean {
+  private sharedModelValid(formValue: any): boolean {
     let requiredAllFilled = true;
     Object.entries(formValue).forEach(([key, value]) => {
       const valid = Object.values(this.getDocumentFormSettings().sharedModel).find((obj) => {

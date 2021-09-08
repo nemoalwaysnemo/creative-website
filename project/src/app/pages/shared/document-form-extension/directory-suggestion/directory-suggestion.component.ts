@@ -82,7 +82,7 @@ export class DirectorySuggestionComponent implements OnInit, OnDestroy, ControlV
 
   onChange(event: any): void {
     if (Array.isArray(event)) {
-      this._onChange(event.map(x => x.value));
+      this._onChange(event.map(x => x.new ? x : x.value));
     } else {
       const value = event ? event.value : '';
       this._onChange(value);

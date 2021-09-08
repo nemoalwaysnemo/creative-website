@@ -7,19 +7,24 @@ export enum UserPermission {
   Mgt = 'MGT',
   Dev = 'DEV',
   View = 'VIEW',
+  CreativeRingMgt = 'CreativeRingMgt',
 }
 
 export const UserRole = {
   Client: {
-    name: 'Client-User',
+    name: 'Client',
     permissions: [UserPermission.View],
   },
   Admin: {
     name: NuxeoUserGroups.Admin,
-    permissions: [UserPermission.View, UserPermission.Mgt],
+    permissions: [UserPermission.View, UserPermission.Mgt, UserPermission.CreativeRingMgt],
   },
   Developer: {
-    name: 'Dev-User',
-    permissions: [UserPermission.View, UserPermission.Mgt, UserPermission.Dev],
+    name: 'Developer',
+    permissions: [UserPermission.View, UserPermission.Mgt, UserPermission.Dev, UserPermission.CreativeRingMgt],
+  },
+  CreativeRingMgt: {
+    name: 'CreativeRing-Manager',
+    permissions: [UserPermission.CreativeRingMgt],
   },
 };

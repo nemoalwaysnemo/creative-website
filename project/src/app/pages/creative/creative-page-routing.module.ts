@@ -1,6 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { UserPermission } from '@core/acl';
+import { UserPermission, UserRole } from '@core/acl';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { CreativePageComponent } from './creative-page.component';
 import { CreativeHomeComponent } from './creative-home/creative-home.component';
@@ -109,22 +109,57 @@ const routes: Routes = [{
     {
       path: 'ring/collection',
       component: CreativeRingCollectionComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: [UserPermission.Mgt, UserPermission.CreativeRingMgt],
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: 'ring/agency',
       component: CreativeRingAgencyComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: [UserPermission.Mgt, UserPermission.CreativeRingMgt],
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: 'ring/brand',
       component: CreativeRingBrandComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: [UserPermission.Mgt, UserPermission.CreativeRingMgt],
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: 'ring/brand/:id/asset',
       component: CreativeRingBrandAssetComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: [UserPermission.Mgt, UserPermission.CreativeRingMgt],
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: 'ring/collection/:id/asset',
       component: CreativeRingCollectionAssetComponent,
+      canActivate: [NgxPermissionsGuard],
+      data: {
+        permissions: {
+          only: [UserPermission.Mgt, UserPermission.CreativeRingMgt],
+          redirectTo: 'home',
+        },
+      },
     },
     {
       path: '',

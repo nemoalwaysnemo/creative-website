@@ -23,6 +23,7 @@ import {
   DirectoryEntriesUnmarshaller,
   StringUnmarshaller,
   MapUnmarshaller,
+  ListUnmarshaller,
 } from './nuxeo.unmarshallers';
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
@@ -249,6 +250,7 @@ export class Nuxeo extends Base {
   }
 
   private _initUnmarshaller(): void {
+    this._registerUnmarshaller('list', ListUnmarshaller);
     this._registerUnmarshaller('user', UserUnmarshaller);
     this._registerUnmarshaller('map', MapUnmarshaller);
     this._registerUnmarshaller('string', StringUnmarshaller);

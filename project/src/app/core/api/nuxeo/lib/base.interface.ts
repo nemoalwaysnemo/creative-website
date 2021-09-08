@@ -615,6 +615,7 @@ export class NuxeoUploadResponse {
 }
 
 export enum NuxeoAutomations {
+  AddDirectoryEntries = 'TBWA.AddDirectoryEntries',
   GetDocumentURStatus = 'Creative.GetDocumentAllURStatus',
   GenerateCollectionPoster = 'Creative.GenerateCollectionPoster',
   AddAssetsToCollection = 'Creative.AddAssetsToCollection',

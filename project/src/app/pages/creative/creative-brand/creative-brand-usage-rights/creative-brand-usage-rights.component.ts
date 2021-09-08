@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, timer } from 'rxjs';
 import { DocumentModel } from '@core/api';
+import { Subject, timer } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { GlobalDocumentViewComponent, DocumentPageService, GlobalSearchFormSettings, SearchFilterModel } from '@pages/shared';
 import { NUXEO_DOC_TYPE } from '@environment/environment';
 
@@ -54,7 +55,9 @@ export class CreativeBrandUsageRightsComponent extends GlobalDocumentViewCompone
         currentPageIndex: 0,
         ecm_path: doc.path,
         ecm_primaryType: NUXEO_DOC_TYPE.CREATIVE_UR_FOLDER_TYPE,
-      }).subscribe((target: DocumentModel) => {
+      }).pipe(
+        filter((d: DocumentModel) => !!d),
+      ).subscribe((target: DocumentModel) => {
         this.target = target;
         this.target.setParent(doc);
       });
