@@ -44,7 +44,7 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
     if ((event.action === 'Updated' || 'Canceled') && (event.context && event.context.formMode === 'edit')) {
       this.goToProjectAssetHome();
     } else if ((event.action === 'Created' || 'Canceled') && event.context) {
-      this.goToCampaignHome();
+      this.goToCampaignHome(event.context.formSettings.homeView);
       // possible --- need to judge if the form opened from 'outside' or 'campaign page'
       // then use this to go to the project page just created here
       // event.action = 'SelectView';
@@ -65,9 +65,9 @@ export class CreativeProjectFormComponent extends GlobalDocumentFormComponent {
     this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
-  goToCampaignHome(): void {
+  goToCampaignHome(homePageView = 'campaign-asset-home-view'): void {
     const settings = new CreativeProjectMgtSettings({ document: this.document.getParent('campaign'), project: this.formSettings.project });
-    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: 'campaign-asset-home-view', type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
+    this.documentPageService.triggerEvent(new GlobalEvent({ name: 'SelectedComponentChanged', data: { view: homePageView, type: 'view', settings }, type: 'creative-campaign-project-mgt' }));
   }
 
   protected getFormAccordion(): any[] {
