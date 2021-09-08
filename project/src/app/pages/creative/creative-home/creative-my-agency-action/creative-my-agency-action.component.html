@@ -1,4 +1,7 @@
 <div class="creative-my-agency">
+  <ng-container *ngxPermissionsOnly="['MGT', 'CreativeRingMgt']">
+    <a [routerLink]="['/p/creative/ring/collection']" class="see_all" title="Creative Ring">Creative Ring</a>
+  </ng-container>
   <ng-container *ngIf="hasAgency && !moreAgencies">
     <a [routerLink]="['/p/creative/agency']" class="see_all right" title="My Agency">My Agency</a>
   </ng-container>
